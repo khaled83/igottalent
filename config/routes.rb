@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :users
+  resources :videos
+  resources :slots
+  resources :events
   resources :events
   get 'upload/upload'
 
