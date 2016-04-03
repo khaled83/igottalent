@@ -3,7 +3,6 @@ Rails.application.routes.draw do
   resources :slots
   resources :videos
   resources :users
-  resources :events
   get 'upload/upload'
 
   # The priority is based upon order of creation: first created -> highest priority.
