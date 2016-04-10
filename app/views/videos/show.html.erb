@@ -1,4 +1,45 @@
-<p id="notice"><%= notice %></p>
+<% provide(:page_title, 'View Video') %>
+  <div id="container">
+    <div class="page-header">
+      <h1>I GOT TALENT <small>View Video</small></h1>
+    </div>
 
-<%= link_to 'Edit', edit_video_path(@video) %> |
-<%= link_to 'Back', videos_path %>
+  <p id="notice"><%= notice %></p>
+
+  <p>
+    <strong>Title:</strong>
+    <%= @video.title %>
+  </p>
+
+  <p>
+    <strong>Type:</strong>
+    <%= @video.type %>
+  </p>
+
+  <p>
+    <strong>Genre:</strong>
+    <%= @video.genre %>
+  </p>
+
+  <p>
+    <strong>URL:</strong>
+    <a href="<%= @video.url %>" target="_blank"><%= @video.url %></a>
+  </p>
+
+  <p>
+    <strong>Duration in seconds:</strong>
+    <%= @video.duration_in_seconds %>
+  </p>
+
+  <p>
+    <strong>User:</strong>
+    <%= @video.user %>
+  </p>
+
+  <iframe width="560" height="315" src="<%= "https://www.youtube.com/embed/#{youtube_video_id}" %>" frameborder="0" allowfullscreen></iframe>
+
+  <br/>
+
+  <%= link_to 'Edit', edit_video_path(@video) %> |
+  <%= link_to 'Back', videos_path %>
+</div>

@@ -1,6 +1,12 @@
-<h1>Editing Slot</h1>
+<% provide(:page_title, 'Edit Slot') %>
+  <div id="container">
+    <div class="page-header">
+      <h1>I GOT TALENT <small>Edit Slot</small></h1>
+    </div>
+  <h1>Editing Slot</h1>
 
-<%= render 'form' %>
+  <%= render 'form' %>
 
-<%= link_to 'Show', @slot %> |
-<%= link_to 'Back', slots_path %>
+  <%= link_to 'Show', @slot %> |
+  <%= link_to 'Back', slots_path %>
+</div>

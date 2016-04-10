@@ -11,6 +11,31 @@
     </div>
   <% end %>
 
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :type %><br>
+    <%= f.text_field :type %>
+  </div>
+  <div class="field">
+    <%= f.label :genre %><br>
+    <%= f.text_field :genre %>
+  </div>
+  <div class="field">
+    <%= f.label :url %><br>
+    <%= f.text_field :url %>
+  </div>
+  <div class="field">
+    <%= f.label :duration_in_seconds %><br>
+    <%= f.number_field :duration_in_seconds %>
+  </div>
+  <div class="field">
+    <%= f.label :user_id %><br>
+    <!--<%= f.text_field :user_id %>-->
+    <%= f.collection_select(:user_id, User.all, :id, :email)  %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>

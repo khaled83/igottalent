@@ -1,25 +1,45 @@
-<p id="notice"><%= notice %></p>
+<% provide(:page_title, 'Listing Slots') %>
+<div id="container">
+  <div class="page-header">
+    <h1>I GOT TALENT <small>Listing Slots</small></h1>
+  </div>
 
-<h1>Listing Slots</h1>
+  <p id="notice"><%= notice %></p>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+  <h1>Listing Slots</h1>
 
-  <tbody>
-    <% @slots.each do |slot| %>
+  <table class="table">
+    <thead>
       <tr>
-        <td><%= link_to 'Show', slot %></td>
-        <td><%= link_to 'Edit', edit_slot_path(slot) %></td>
-        <td><%= link_to 'Destroy', slot, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Start time</th>
+        <th>End time</th>
+        <th>Type</th>
+        <th>Genre</th>
+        <th>User</th>
+        <th>Video</th>
+        <th colspan="3"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<br>
+    <tbody>
+      <% @slots.each do |slot| %>
+        <tr <%= ("class=success" if slot.video) %>>
+          <td><%= slot.start_time %></td>
+          <td><%= slot.end_time %></td>
+          <td><%= slot.type %></td>
+          <td><%= slot.genre %></td>
+          <td><%= slot.user.email %></td>
+          <td><%= link_to video_url(slot), slot.video %></a></td>
+          <td><%= link_to 'Show', slot, class: 'btn btn-default' %></td>
+          <td><%= link_to 'Edit', edit_slot_path(slot), class: 'btn btn-default' %></td>
+          <td><%= link_to 'Destroy', slot, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-<%= link_to 'New Slot', new_slot_path %>
+  <br>
+
+  <%= link_to 'New Slot', new_slot_path %>
+
+</div>

@@ -1,6 +1,11 @@
-<h1>Editing Video</h1>
+<% provide(:page_title, 'Edit Video') %>
+  <div id="container">
+    <div class="page-header">
+      <h1>I GOT TALENT <small>Edit Video</small></h1>
+    </div>
 
-<%= render 'form' %>
+  <%= render 'form' %>
 
-<%= link_to 'Show', @video %> |
-<%= link_to 'Back', videos_path %>
+  <%= link_to 'Show', @video %> |
+  <%= link_to 'Back', videos_path %>
+</div>

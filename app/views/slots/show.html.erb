@@ -1,4 +1,44 @@
-<p id="notice"><%= notice %></p>
+<% provide(:page_title, 'Show Slot') %>
+<div id="container">
+  <div class="page-header">
+    <h1>I GOT TALENT <small>Show Slot</small></h1>
+  </div>
+  <p id="notice"><%= notice %></p>
 
-<%= link_to 'Edit', edit_slot_path(@slot) %> |
-<%= link_to 'Back', slots_path %>
+  <p>
+    <strong>Start time:</strong>
+    <%= @slot.start_time %>
+  </p>
+
+  <p>
+    <strong>End time:</strong>
+    <%= @slot.end_time %>
+  </p>
+
+  <p>
+    <strong>Type:</strong>
+    <%= @slot.type %>
+  </p>
+
+  <p>
+    <strong>Genre:</strong>
+    <%= @slot.genre %>
+  </p>
+
+  <p>
+    <strong>User:</strong>
+    <%= @slot.user %>
+  </p>
+
+  <p>
+    <strong>Video:</strong>
+    <%= link_to video_url(@slot), @slot.video %></a>
+  </p>
+
+  <iframe width="560" height="315" src="<%= "https://www.youtube.com/embed/#{youtube_video_id}" %>" frameborder="0" allowfullscreen></iframe>
+
+  <br/>
+
+  <%= link_to 'Edit', edit_slot_path(@slot) %> |
+  <%= link_to 'Back', slots_path %>
+</div>

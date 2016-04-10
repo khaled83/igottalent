@@ -1,6 +1,14 @@
-<h1>Editing User</h1>
+<% provide(:page_title, 'Edit User') %>
+<div id="container">
+  <div class="page-header">
+    <h1>I GOT TALENT <small>Edit User</small></h1>
+  </div>
 
-<%= render 'form' %>
+  <h1>Editing User</h1>
 
-<%= link_to 'Show', @user %> |
-<%= link_to 'Back', users_path %>
+  <%= render 'form' %>
+
+  <%= link_to 'Show', @user %> |
+  <%= link_to 'Back', users_path %>
+
+</div>
