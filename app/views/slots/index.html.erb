@@ -1,12 +1,12 @@
 <% provide(:page_title, 'Listing Slots') %>
 <div id="container">
   <div class="page-header">
-    <h1>I GOT TALENT <small>Listing Slots</small></h1>
+    <h2>I GOT TALENT <small>SCHEDULE</small></h2>
   </div>
 
   <p id="notice"><%= notice %></p>
 
-  <h1>Listing Slots</h1>
+    <p><em>I Got Talent</em> events for today.</p>
 
   <table class="table">
     <thead>
@@ -40,6 +40,6 @@
 
   <br>
 
-  <%= link_to 'New Slot', new_slot_path %>
+<%= link_to '+New Time Slot', new_slot_path, class: "btn btn-default" %>
 
 </div>
