@@ -27,16 +27,27 @@
 
   <p>
     <strong>User:</strong>
-    <%= @slot.user %>
+    <%= @slot.user.name %>
   </p>
 
-  <p>
-    <strong>Video:</strong>
-    <%= link_to video_url(@slot), @slot.video %></a>
-  </p>
+  <% if(@slot.video) %>
+    <p>
+      <strong>Video:</strong>
+      <%= link_to video_url(@slot), @slot.video %></a>
+    </p>
+    <iframe width="560" height="315" src="<%= "https://www.youtube.com/embed/#{youtube_video_id}" %>" frameborder="0" allowfullscreen></iframe>
+  <% else %>
+    <span class="label label-primary">EMPTY SLOT</span>
+      <br/>
+      <br/>
 
-  <iframe width="560" height="315" src="<%= "https://www.youtube.com/embed/#{youtube_video_id}" %>" frameborder="0" allowfullscreen></iframe>
+      <button type="button" class="btn btn-default btn-md">
+        <span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span> <%= link_to 'SHARE VIDEO NOW!', edit_slot_path(@slot) %>
+      </button>
 
+  <% end %>
+
+  <br/>
   <br/>
 
   <%= link_to 'Edit', edit_slot_path(@slot) %> |

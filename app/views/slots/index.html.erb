@@ -1,12 +1,12 @@
 <% provide(:page_title, 'Listing Slots') %>
 <div id="container">
   <div class="page-header">
-    <h1>I GOT TALENT <small>Listing Slots</small></h1>
+    <h2>I GOT TALENT <small>SCHEDULE</small></h2>
   </div>
 
   <p id="notice"><%= notice %></p>
 
-  <h1>Listing Slots</h1>
+    <p><em>I Got Talent</em> events for today.</p>
 
   <table class="table">
     <thead>
@@ -30,9 +30,25 @@
           <td><%= slot.genre %></td>
           <td><%= slot.user.email %></td>
           <td><%= link_to video_url(slot), slot.video %></a></td>
-          <td><%= link_to 'Show', slot, class: 'btn btn-default' %></td>
-          <td><%= link_to 'Edit', edit_slot_path(slot), class: 'btn btn-default' %></td>
-          <td><%= link_to 'Destroy', slot, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' %></td>
+          <td>
+            <button type="button" class="btn btn-default btn-md" onclick="location.href='<%= slot_url(slot) %>'">
+              <span class="glyphicon glyphicon-book" aria-hidden="true"></span> View
+            </button>
+            <!-- <%= link_to 'View', edit_slot_path(slot), class: 'btn btn-default' %></td> -->
+          <td>
+            <button type="button" class="btn btn-default btn-md" onclick="location.href='<%= slot_url(slot) %>'">
+              <span class="glyphicon glyphicon-hd-video" aria-hidden="true"></span> Stream
+            </button>
+          </td>
+          <td>
+            <% unless slot.video %>
+              <button type="button" class="btn btn-default btn-md"  onclick="location.href='<%= edit_slot_url(slot) %>'">
+                <span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span> SHARE
+              </button>
+            <% end %>
+          </td>
+
+          <!--<td><%= link_to 'Destroy', slot, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' %></td>-->
         </tr>
       <% end %>
     </tbody>
@@ -40,6 +56,6 @@
 
   <br>
 
-  <%= link_to 'New Slot', new_slot_path %>
+<%= link_to '+New Time Slot', new_slot_path, class: "btn btn-default" %>
 
 </div>

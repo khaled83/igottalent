@@ -14,3 +14,16 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+$(document).ready(function(){
+
+    var mainMenu = $("nav ul.nav-pills");
+
+    mainMenu.find("li a").click(function(){
+        //alert($(this).parent().attr('role'));
+        //alert(mainMenu.find("li.active").length);
+        mainMenu.find("li.active").toggleClass('active');
+        $(this).parent().addClass('active');
+        //alert($(this).parent().attr('class'));
+    });
+});

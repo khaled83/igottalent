@@ -12,4 +12,5 @@ module SlotsHelper
     url = slot.video.url if slot and slot.video
     return url
   end
+
 end
