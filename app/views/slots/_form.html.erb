@@ -11,31 +11,31 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="field form-group">
     <%= f.label :start_time %><br>
-    <%= f.text_field :start_time, :value => default_slot_start_time %>
+    <%= f.text_field :start_time, :value => default_slot_start_time, :class => "form-control" %>
   </div>
-  <div class="field">
+  <div class="field form-group">
     <%= f.label :end_time %><br>
-    <%= f.text_field :end_time, :value => default_slot_end_time %>
+    <%= f.text_field :end_time, :value => default_slot_end_time, :class => "form-control" %>
   </div>
-  <div class="field">
+  <div class="field form-group">
     <%= f.label :type %><br>
-    <%= f.text_field :type %>
+    <%= f.select(:type, options_for_select(%w(Voice Music), 'Voice')) %>
   </div>
-  <div class="field">
+  <div class="field form-group">
     <%= f.label :genre %><br>
-    <%= f.text_field :genre %>
+    <%= f.select(:genre, options_for_select(%w(Rock Pop Jazz Classical Metal Electronic Alternative Other), 'Rock')) %>
   </div>
-  <div class="field">
+  <div class="field form-group">
     <%= f.label :user_id %><br>
     <%= f.collection_select(:user_id, User.all, :id, :email) %>
-  <div class="field">
+  </div>
+  <!--<div class="field form-group">
     <%= f.label :video_id %><br>
     <%= f.collection_select(:video_id, Video.all, :id, :title, :include_blank => true) %>
-  </div>
+  </div>-->
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
-</div>
