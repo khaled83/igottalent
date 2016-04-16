@@ -27,7 +27,7 @@
 
   <p>
     <strong>User:</strong>
-    <%= @slot.user.name %>
+    <%= @slot.user.name if @slot.user %>
   </p>
 
   <% if(@slot.video) %>

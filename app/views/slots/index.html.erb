@@ -28,7 +28,7 @@
           <td><%= slot.end_time %></td>
           <td><%= slot.type %></td>
           <td><%= slot.genre %></td>
-          <td><%= slot.user.email %></td>
+            <td><%= slot.user.email if slot.user %></td>
           <td><%= link_to video_url(slot), slot.video %></a></td>
           <td>
             <button type="button" class="btn btn-default btn-md" onclick="location.href='<%= slot_url(slot) %>'">
@@ -36,7 +36,8 @@
             </button>
             <!-- <%= link_to 'View', edit_slot_path(slot), class: 'btn btn-default' %></td> -->
           <td>
-            <button type="button" class="btn btn-default btn-md" onclick="location.href='<%= slot_url(slot) %>'">
+            <button type="button" class="btn btn-default btn-md" <%= 'disabled' unless slot.video %>
+                    onclick="location.href='<%= video_url(slot.video) if slot.video %>'">
               <span class="glyphicon glyphicon-hd-video" aria-hidden="true"></span> Stream
             </button>
           </td>
@@ -56,6 +57,6 @@
 
   <br>
 
-<%= link_to '+New Time Slot', new_slot_path, class: "btn btn-default" %>
+<%= link_to '+New Time Slot', new_slot_path, class: "btn btn-warning" %>
 
 </div>

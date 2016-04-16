@@ -51,6 +51,12 @@ class SlotsController < ApplicationController
     end
   end
 
+  def video_edit
+  end
+
+  def video_update
+  end
+
   # DELETE /slots/1
   # DELETE /slots/1.json
   def destroy

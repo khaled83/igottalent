@@ -21,20 +21,22 @@
   </div>
   <div class="field form-group">
     <%= f.label :type %><br>
-    <%= f.select(:type, options_for_select(%w(Voice Music), 'Voice')) %>
+    <%= f.select(:type, options_for_select(%w(Voice Music)), :include_blank => true) %>
   </div>
   <div class="field form-group">
     <%= f.label :genre %><br>
-    <%= f.select(:genre, options_for_select(%w(Rock Pop Jazz Classical Metal Electronic Alternative Other), 'Rock')) %>
+    <%= f.select(:genre, options_for_select(%w(Rock Pop Jazz Classical Metal Electronic Alternative Other), 'Rock'), :include_blank => true) %>
   </div>
-  <div class="field form-group">
+
+    <!--<div class="field form-group">
     <%= f.label :user_id %><br>
     <%= f.collection_select(:user_id, User.all, :id, :email) %>
   </div>
-  <!--<div class="field form-group">
-    <%= f.label :video_id %><br>
+  <div class="field form-group">
+    <%= f.label :video_id %>
     <%= f.collection_select(:video_id, Video.all, :id, :title, :include_blank => true) %>
   </div>-->
+
   <div class="actions">
     <%= f.submit %>
   </div>
