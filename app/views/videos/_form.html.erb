@@ -11,32 +11,31 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="field form-group">
     <%= f.label :title %><br>
-    <%= f.text_field :title %>
+    <%= f.text_field :title, :class => 'form-control' %>
   </div>
-  <div class="field">
+  <div class="field form-group">
     <%= f.label :type %><br>
-    <%= f.text_field :type %>
+    <%= f.text_field :type, :class => 'form-control' %>
   </div>
-  <div class="field">
+  <div class="field form-group">
     <%= f.label :genre %><br>
-    <%= f.text_field :genre %>
+    <%= f.text_field :genre, :class => 'form-control' %>
   </div>
-  <div class="field">
-    <%= f.label :url %><br>
-    <%= f.text_field :url %>
-  </div>
-  <div class="field">
+  <div class="field form-group">
     <%= f.label :duration_in_seconds %><br>
-    <%= f.number_field :duration_in_seconds %>
+    <%= f.number_field :duration_in_seconds, :class => 'form-control' %>
   </div>
-  <div class="field">
-    <%= f.label :user_id %><br>
-    <!--<%= f.text_field :user_id %>-->
-    <%= f.collection_select(:user_id, User.all, :id, :email)  %>
+  <div class="input-group">
+    <span class="input-group-addon" id="basic-addon1">@</span>
+    <%= f.text_field :url, :class => 'form-control', :placeholder => 'Video URL', 'aria-describedby' => 'basic-addon1' %>
+  </div>
+  <div class="input-group">
+    <%= f.hidden_field :user_id, :value => current_user.id %>
   </div>
   <div class="actions">
+    <br>
     <%= f.submit %>
   </div>
 <% end %>

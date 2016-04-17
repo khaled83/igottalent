@@ -1,4 +1,9 @@
 module ApplicationHelper
+
+  def current_user
+    User.find(1)
+  end
+
   def full_title(page_title)
     title = 'I GOT TALENT'
     title = "#{title} | #{page_title}" if page_title
