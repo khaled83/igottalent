@@ -1,4 +1,4 @@
 class Slot < ActiveRecord::Base
   belongs_to :user
-  belongs_to :video
+  has_one :video
 end

@@ -54,6 +54,8 @@ class SlotsController < ApplicationController
   def video_edit
     @slot = Slot.find(params[:id])
     @video = Video.new
+    @slot.video = @video
+    @video.slot = @slot
   end
 
   def video_update

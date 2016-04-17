@@ -7,8 +7,9 @@ module SlotsHelper
     return default_slot_start_time + (5 * 60)
   end
 
-  def video_url(slot)
+  def video_http_url(slot)
     url = ''
+    # debugger
     url = slot.video.url if slot and slot.video
     return url
   end

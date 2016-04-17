@@ -43,7 +43,7 @@
           </td>
           <td>
             <% unless slot.video %>
-              <button type="button" class="btn btn-default btn-md"  onclick="location.href='<%= edit_slot_url(slot) %>'">
+              <button type="button" class="btn btn-default btn-md"  onclick="location.href='/slots/<%= slot.id %>/video/edit'">
                 <span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span> SHARE
               </button>
             <% end %>

@@ -1,20 +1,38 @@
 <% provide(:page_title, 'View Video') %>
   <div id="container">
     <div class="page-header">
-      <h1>I GOT TALENT <small>View Video</small></h1>
+      <h1>I GOT TALENT <small>Your Video</small></h1>
     </div>
 
   <p id="notice"><%= notice %></p>
+
+  <% if @video.slot and @video.slot.start_time <= Time.now %>
+    <span class="label label-success">Live</span>
+    <br>
+    <small> 125,000+ people viewed your video!</small>
+    <br>
+  <% elsif @video.slot %>
+    <span class="label label-primary">Queuing</span>
+    <br>
+    <small> Stay tuned, video will broadcast at <%= @video.slot.start_time %></small>
+    <br>
+  <% else %>
+    <span class="label label-success">Waiting</span>
+    <br>
+    <small> Your video is not scheduled yet.</small><%= link_to slots_path, 'Find a slot now!' %>
+    <br>
+  <% end %>
+  <br>
 
   <p>
     <strong>Title:</strong>
     <%= @video.title %>
   </p>
 
-  <p>
+  <!-- <p>
     <strong>Type:</strong>
     <%= @video.type %>
-  </p>
+  </p> -->
 
   <p>
     <strong>Genre:</strong>
@@ -26,15 +44,15 @@
     <a href="<%= @video.url %>" target="_blank"><%= @video.url %></a>
   </p>
 
-  <p>
+    <!--<p>
     <strong>Duration in seconds:</strong>
     <%= @video.duration_in_seconds %>
   </p>
 
-  <p>
+   <p>
     <strong>User:</strong>
     <%= @video.user %>
-  </p>
+  </p> -->
 
   <iframe width="560" height="315" src="<%= "https://www.youtube.com/embed/#{youtube_video_id}" %>" frameborder="0" allowfullscreen></iframe>
 
