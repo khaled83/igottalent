@@ -62,6 +62,14 @@ class VideosController < ApplicationController
     # end
   end
 
+
+  def slot_update(slot)
+    @video = Video.find(params[:id])
+    @slot = Slot.new
+    @video.slot = @slot
+    @slot.video = @video
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_video

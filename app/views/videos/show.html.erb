@@ -17,7 +17,7 @@
     <small> Stay tuned, video will broadcast at <%= @video.slot.start_time %></small>
     <br>
   <% else %>
-    <span class="label label-success">Waiting</span>
+    <span class="label label-warning">Waiting</span>
     <br>
     <small> Your video is not scheduled yet.</small><%= link_to slots_path, 'Find a slot now!' %>
     <br>
@@ -63,4 +63,11 @@
   <%= link_to 'Edit', edit_video_path(@video) %> |
   <%= link_to 'Back', videos_path %> |
   <%= link_to 'Slots', slots_path %>
+
+  <br><br>
+  <% if @video.slot %>
+    <button type="button" class="btn btn-danger">Disapprove</button>
+  <% else %>
+    <button type="button" class="btn btn-success">Approve</button>
+  <% end %>
 </div>

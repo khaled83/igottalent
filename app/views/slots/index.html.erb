@@ -8,54 +8,97 @@
 
     <p><em>I Got Talent</em> events for today.</p>
 
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Start time</th>
-        <th>End time</th>
-        <!--<th>Type</th>-->
-        <th>Genre</th>
-        <th>User</th>
-        <th>Video</th>
-        <th colspan="3"></th>
-      </tr>
-    </thead>
 
-    <tbody>
-      <% @slots.each do |slot| %>
-        <tr class="<%= 'success' if slot.video and live?(slot) %> <%= 'active' if slot.video and !live?(slot) %>">
-          <td><%= slot.start_time %></td>
-          <td><%= slot.end_time %></td>
-          <!--<td><%= slot.type %></td>-->
-          <td><%= slot.genre %></td>
-            <td><%= slot.user.email if slot.user %></td>
-          <td><%= link_to video_url(slot), slot.video %></a></td>
-          <td>
-            <% if slot.video  and !live?(slot) %>
-              <button type="button" class="btn btn-default btn-md" onclick="location.href='<%= slot_url(slot) %>'">
-                <span class="glyphicon glyphicon-book" aria-hidden="true"></span> View
-              </button>
-            <!-- <%= link_to 'View', edit_slot_path(slot), class: 'btn btn-default' %></td> -->
-            <% end %>
-          <td>
-            <button type="button" class="btn btn-default btn-md" <%= 'disabled' unless slot.video and live?(slot) %>
-                    onclick="location.href='<%= video_url(slot.video) if slot.video and live?(slot) %>'">
-              <span class="glyphicon glyphicon-hd-video" aria-hidden="true"></span> Stream
-            </button>
-          </td>
-          <td>
-            <% unless slot.video %>
-              <button type="button" class="btn btn-default btn-md"  onclick="location.href='/slots/<%= slot.id %>/video/edit'">
-                <span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span> SHARE
-              </button>
-            <% end %>
-          </td>
 
-          <!--<td><%= link_to 'Destroy', slot, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' %></td>-->
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+
+  <div class="row">
+    <h3>Most Popular</h3>
+    <% @slots.each do |slot| %>
+        <% if slot.video and live?(slot) %>
+        <div class="col-lg-3">
+          <div class="panel <%= live?(slot) ? "panel-success" : "panel-default" %>">
+            <div class="panel-heading">
+              <em><%= "\"#{slot.video.title}\"" %></em>
+              by
+              <strong><%= slot.video.user.name %></strong>
+            </div>
+            <div class="panel-body">
+              <% if live?(slot) %>
+                  <!-- 4:3 aspect ratio -->
+                  <div class="embed-responsive embed-responsive-16by9">
+                  <!--<div class="embed-responsive embed-responsive-4by3">-->
+                    <iframe width="290" height="165" src="<%= "https://www.youtube.com/embed/#{youtube_video_id_of(slot.video)}" %>" class="embed-responsive-item" frameborder="0" allowfullscreen></iframe>
+                  </div>
+                  <br>
+                  <div style="float: left;">
+                    <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                    <button type="button" class="btn btn-success btn-xs">Like</button>
+                    <small>100,250 </small>
+                  </div>
+                  <div style="float: right;;">
+                    <small>80,115 </small>
+                    <button type="button" class="btn btn-danger btn-xs">Dislike</button>
+                    <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+                  </div>
+              <% else %>
+                  <address>
+                    <strong><%= slot.video.user.name %></strong><br>
+                    Starts on <strong><%= slot.start_time.strftime('%a %I:%M %p') %></strong><br>
+                    <span class="label label-primary"><%= slot.genre %></span>
+                    <br><br>
+                    <abbr title="Genres">Coming soon.</abbr>
+                  </address>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <% end %>
+    <% end %>
+  </div>
+ <div class="row">
+    <h3>Most viewed</h3>
+    <% @slots.each do |slot| %>
+        <% if slot.video and live?(slot) %>
+        <div class="col-lg-3">
+          <div class="panel <%= live?(slot) ? "panel-success" : "panel-default" %>">
+            <div class="panel-heading">
+              <em><%= "\"#{slot.video.title}\"" %></em>
+              by
+              <strong><%= slot.video.user.name %></strong>
+            </div>
+            <div class="panel-body">
+              <% if live?(slot) %>
+                  <!-- 4:3 aspect ratio -->
+                  <div class="embed-responsive embed-responsive-16by9">
+                  <!--<div class="embed-responsive embed-responsive-4by3">-->
+                    <iframe width="290" height="165" src="<%= "https://www.youtube.com/embed/#{youtube_video_id_of(slot.video)}" %>" class="embed-responsive-item" frameborder="0" allowfullscreen></iframe>
+                  </div>
+                  <br>
+                  <div style="float: left;">
+                    <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                    <button type="button" class="btn btn-success btn-xs">Like</button>
+                    <small>100,250 </small>
+                  </div>
+                  <div style="float: right;;">
+                    <small>80,115 </small>
+                    <button type="button" class="btn btn-danger btn-xs">Dislike</button>
+                    <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+                  </div>
+              <% else %>
+                  <address>
+                    <strong><%= slot.video.user.name %></strong><br>
+                    Starts on <strong><%= slot.start_time.strftime('%a %I:%M %p') %></strong><br>
+                    <span class="label label-primary"><%= slot.genre %></span>
+                    <br><br>
+                    <abbr title="Genres">Coming soon.</abbr>
+                  </address>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <% end %>
+    <% end %>
+  </div>
 
   <br>
 
