@@ -13,7 +13,7 @@
       <tr>
         <th>Start time</th>
         <th>End time</th>
-        <th>Type</th>
+        <!--<th>Type</th>-->
         <th>Genre</th>
         <th>User</th>
         <th>Video</th>
@@ -23,21 +23,23 @@
 
     <tbody>
       <% @slots.each do |slot| %>
-        <tr <%= ("class=success" if slot.video) %>>
+        <tr class="<%= 'success' if slot.video and live?(slot) %> <%= 'active' if slot.video and !live?(slot) %>">
           <td><%= slot.start_time %></td>
           <td><%= slot.end_time %></td>
-          <td><%= slot.type %></td>
+          <!--<td><%= slot.type %></td>-->
           <td><%= slot.genre %></td>
             <td><%= slot.user.email if slot.user %></td>
           <td><%= link_to video_url(slot), slot.video %></a></td>
           <td>
-            <button type="button" class="btn btn-default btn-md" onclick="location.href='<%= slot_url(slot) %>'">
-              <span class="glyphicon glyphicon-book" aria-hidden="true"></span> View
-            </button>
+            <% if slot.video  and !live?(slot) %>
+              <button type="button" class="btn btn-default btn-md" onclick="location.href='<%= slot_url(slot) %>'">
+                <span class="glyphicon glyphicon-book" aria-hidden="true"></span> View
+              </button>
             <!-- <%= link_to 'View', edit_slot_path(slot), class: 'btn btn-default' %></td> -->
+            <% end %>
           <td>
-            <button type="button" class="btn btn-default btn-md" <%= 'disabled' unless slot.video %>
-                    onclick="location.href='<%= video_url(slot.video) if slot.video %>'">
+            <button type="button" class="btn btn-default btn-md" <%= 'disabled' unless slot.video and live?(slot) %>
+                    onclick="location.href='<%= video_url(slot.video) if slot.video and live?(slot) %>'">
               <span class="glyphicon glyphicon-hd-video" aria-hidden="true"></span> Stream
             </button>
           </td>

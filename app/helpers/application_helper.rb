@@ -1,7 +1,8 @@
 module ApplicationHelper
 
   def current_user
-    User.find(1)
+    user_id = session[:user_id] || 1
+    User.find(user_id)
   end
 
   def full_title(page_title)

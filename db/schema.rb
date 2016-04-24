@@ -13,16 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20160417073855) do
 
-  create_table "events", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "time"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "video"
-    t.datetime "start_time"
-    t.datetime "end_time"
-  end
-
   create_table "slots", force: :cascade do |t|
     t.datetime "start_time"
     t.datetime "end_time"

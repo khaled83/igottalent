@@ -41,9 +41,9 @@
       <br/>
       <br/>
 
-      <button type="button" class="btn btn-default btn-md">
-        <span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span> <%= link_to 'SHARE VIDEO NOW!', edit_slot_path(@slot) %>
-      </button>
+        <button type="button" class="btn btn-default btn-md"  onclick="location.href='/slots/<%= @slot.id %>/video/edit'">
+          <span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span> SHARE VIDEO NOW
+        </button>
 
   <% end %>
 

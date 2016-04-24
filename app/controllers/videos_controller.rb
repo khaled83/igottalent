@@ -55,10 +55,11 @@ class VideosController < ApplicationController
   # DELETE /videos/1.json
   def destroy
     @video.destroy
-    respond_to do |format|
-      format.html { redirect_to videos_url, notice: 'Video was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to slots_path
+    # respond_to do |format|
+    #   format.html { redirect_to videos_url, notice: 'Video was successfully destroyed.' }
+    #   format.json { head :no_content }
+    # end
   end
 
   private

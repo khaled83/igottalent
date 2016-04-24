@@ -54,10 +54,13 @@
     <%= @video.user %>
   </p> -->
 
-  <iframe width="560" height="315" src="<%= "https://www.youtube.com/embed/#{youtube_video_id}" %>" frameborder="0" allowfullscreen></iframe>
+  <% if @video.user == current_user or (@video.slot and @video.slot.start_time <= Time.now)  %>
+    <iframe width="560" height="315" src="<%= "https://www.youtube.com/embed/#{youtube_video_id}" %>" frameborder="0" allowfullscreen></iframe>
+  <% end %>
 
   <br/>
 
   <%= link_to 'Edit', edit_video_path(@video) %> |
-  <%= link_to 'Back', videos_path %>
+  <%= link_to 'Back', videos_path %> |
+  <%= link_to 'Slots', slots_path %>
 </div>
