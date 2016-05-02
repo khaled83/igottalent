@@ -19,7 +19,7 @@
   <% else %>
     <span class="label label-warning">Waiting</span>
     <br>
-    <small> Your video is not scheduled yet.</small><%= link_to slots_path, 'Find a slot now!' %>
+    <small> Your video is waiting for approval.</small>
     <br>
   <% end %>
   <br>
@@ -66,8 +66,8 @@
 
   <br><br>
   <% if @video.slot %>
-    <button type="button" class="btn btn-danger">Disapprove</button>
+    <%= link_to 'Disapprove', "/videos/#{@video.id}/disapprove", method: :post, class: 'btn btn-danger' %>
   <% else %>
-    <button type="button" class="btn btn-success">Approve</button>
+    <%= link_to 'Approve', "/videos/#{@video.id}/approve", method: :post, class: 'btn btn-success' %>
   <% end %>
 </div>

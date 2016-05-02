@@ -6,13 +6,17 @@
 
   <p id="notice"><%= notice %></p>
 
-    <p><em>I Got Talent</em> events for today.</p>
+<p>Check out latest <em>I Got Talent</em> events!</p>
 
+<p>Wanna share your talent? <%= link_to 'Upload now!', new_video_path, class: 'btn-sm btn-success' %></p>
 
-
-
+    <h3>POPULAR</h3>
   <div class="row">
-    <h3>Most Popular</h3>
+    <nav class="col-lg-1">
+        <ul class="pager">
+          <li class="pager-prev" style="float: left;"><a href="#">Newer</a></li>
+        </ul>
+    </nav>
     <% @slots.each do |slot| %>
         <% if slot.video and live?(slot) %>
         <div class="col-lg-3">
@@ -54,9 +58,16 @@
         </div>
         <% end %>
     <% end %>
+    <nav class="col-lg-1">
+        <ul class="pager">
+          <li class="pager-prev" style="float: left;"><a href="#">Older</a></li>
+        </ul>
+    </nav>
   </div>
+    
+<h3>LATEST</h3>
  <div class="row">
-    <h3>Most viewed</h3>
+     <div class="col-lg-1"></div>
     <% @slots.each do |slot| %>
         <% if slot.video and live?(slot) %>
         <div class="col-lg-3">
@@ -99,9 +110,15 @@
         <% end %>
     <% end %>
   </div>
+  <nav>
+      <ul class="pager">
+        <li class="pager-prev" style="float: left;"><a href="#">Newer</a></li>
+        <li class="pager-next" style="float: right;"><a href="#">Older</a></li>
+      </ul>
+  </nav>
 
   <br>
 
-<%= link_to '+New Time Slot', new_slot_path, class: "btn btn-warning" %>
+<!--<%= link_to '+New Time Slot', new_slot_path, class: "btn btn-warning" %>-->
 
 </div>

@@ -51,6 +51,23 @@ class VideosController < ApplicationController
     end
   end
 
+  # PATCH/PUT /videos/1/approve
+  def approve
+    video = Video.find(params[:id])
+    slot = Slot.available.first
+    video.slot =slot
+    redirect_to video
+  end
+
+  # PATCH/PUT /videos/1/approve
+  def disapprove
+    video = Video.find(params[:id])
+    slot = video.slot
+    video.update(slot_id: nil)
+    slot.update(video_id: nil)
+    redirect_to video
+  end
+
   # DELETE /videos/1
   # DELETE /videos/1.json
   def destroy
@@ -61,7 +78,6 @@ class VideosController < ApplicationController
     #   format.json { head :no_content }
     # end
   end
-
 
   def slot_update(slot)
     @video = Video.find(params[:id])

@@ -1,7 +1,7 @@
 <% provide(:page_title, 'Listing Videos') %>
   <div id="container">
     <div class="page-header">
-      <h1>I GOT TALENT <small>Listing Videos</small></h1>
+      <h1>I GOT TALENT <small>VIDEO QUEUE</small></h1>
     </div>
 
   <p id="notice"><%= notice %></p>
@@ -21,22 +21,25 @@
 
     <tbody>
       <% @videos.each do |video| %>
-        <tr>
+        <% unless video.slot %>
+        <tr class="<%= video.slot ? 'success' : '' %>">
           <td><%= video.title %></td>
           <td><%= video.type %></td>
           <td><%= video.genre %></td>
           <td><a href="<%= video.url %>" target="_blank"><%= video.url %></a></td>
           <td><%= video.duration_in_seconds %></td>
-          <td><%= video.user.email %></td>
+          <td><%= video.user.email if video.user %></td>
           <td><%= link_to 'Show', video, class: 'btn btn-default' %></td>
-          <td><%= link_to 'Edit', edit_video_path(video), class: 'btn btn-default' %></td>
-          <td><%= link_to 'Destroy', video, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' %></td>
+          <td><%= link_to 'Approve', "/videos/#{video.id}/approve", method: :post, class: 'btn btn-success' %></td>
+          <!--<td><%= link_to 'Edit', edit_video_path(video), class: 'btn btn-default' %></td>-->
+          <td><%= link_to 'Delete', video, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
         </tr>
+        <% end %>
       <% end %>
     </tbody>
   </table>
 
   <br>
 
-  <%= link_to 'New Video', new_video_path %>
+  <%= link_to 'Upload video', new_video_path %>
 </div>

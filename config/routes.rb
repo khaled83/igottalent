@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   get 'slots/:id/video/edit' => 'slots#video_edit'
   get 'slots/:id/video/update' => 'slots#video_update'
   get 'videos/:id/slot/edit' => 'videos#slot_update'
+  post 'videos/:id/approve' => 'videos#approve'
+  post 'videos/:id/disapprove' => 'videos#disapprove'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
