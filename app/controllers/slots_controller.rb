@@ -4,7 +4,10 @@ class SlotsController < ApplicationController
   # GET /slots
   # GET /slots.json
   def index
-    @slots = Slot.order(:start_time)
+    # @slots = Slot.order(:start_time)
+    @slots = Slot.paginate(page: params[:page], per_page: 3)
+
+    # Slot.paginate
   end
 
   # GET /slots/1
@@ -75,6 +78,10 @@ class SlotsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_slot
       @slot = Slot.find(params[:id])
+    end
+
+    def last_page?
+      @slots.current_page == @slots.total_pages
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

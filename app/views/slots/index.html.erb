@@ -1,4 +1,5 @@
 <% provide(:page_title, 'Listing Slots') %>
+
 <div id="container">
   <div class="page-header">
     <h2>I GOT TALENT <small>SCHEDULE</small></h2>
@@ -14,7 +15,7 @@
   <div class="row">
     <nav class="col-lg-1">
         <ul class="pager">
-          <li class="pager-prev" style="float: left;"><a href="#">Newer</a></li>
+          <li class="pager-prev <%= 'disabled' unless @slots.previous_page %>" style="float: left;"><a href=<%= @slots.current_page == 1 ? '#' : "/?page=#{@slots.previous_page}" %>>Newer</a></li>
         </ul>
     </nav>
     <% @slots.each do |slot| %>
@@ -60,7 +61,7 @@
     <% end %>
     <nav class="col-lg-1">
         <ul class="pager">
-          <li class="pager-prev" style="float: left;"><a href="#">Older</a></li>
+          <li class="pager-prev  <%= 'disabled' unless @slots.next_page %>"><a href=<%= @slots.current_page == @slots.total_pages ? '#' : "/?page=#{@slots.next_page}" %>>Older</a></li>
         </ul>
     </nav>
   </div>
@@ -109,11 +110,62 @@
         </div>
         <% end %>
     <% end %>
+
+   <%= will_paginate style: 'margin-left: 365px;' %>
+
+  </div>
+
+
+  <h3>Recommended for you</h3>
+  <div class="row">
+    <div class="col-lg-1"></div>
+    <% @slots.each do |slot| %>
+        <% if slot.video and live?(slot) %>
+            <div class="col-lg-3">
+              <div class="panel <%= live?(slot) ? "panel-success" : "panel-default" %>">
+                <div class="panel-heading">
+                  <em><%= "\"#{slot.video.title}\"" %></em>
+                  by
+                  <strong><%= slot.video.user.name %></strong>
+                </div>
+                <div class="panel-body">
+                  <% if live?(slot) %>
+                      <!-- 4:3 aspect ratio -->
+                      <div class="embed-responsive embed-responsive-16by9">
+                        <!--<div class="embed-responsive embed-responsive-4by3">-->
+                        <iframe width="290" height="165" src="<%= "https://www.youtube.com/embed/#{youtube_video_id_of(slot.video)}" %>" class="embed-responsive-item" frameborder="0" allowfullscreen></iframe>
+                      </div>
+                      <br>
+                      <div style="float: left;">
+                        <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                        <button type="button" class="btn btn-success btn-xs">Like</button>
+                        <small>100,250 </small>
+                      </div>
+                      <div style="float: right;;">
+                        <small>80,115 </small>
+                        <button type="button" class="btn btn-danger btn-xs">Dislike</button>
+                        <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+                      </div>
+                  <% else %>
+                      <address>
+                        <strong><%= slot.video.user.name %></strong><br>
+                        Starts on <strong><%= slot.start_time.strftime('%a %I:%M %p') %></strong><br>
+                        <span class="label label-primary"><%= slot.genre %></span>
+                        <br><br>
+                        <abbr title="Genres">Coming soon.</abbr>
+                      </address>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+        <% end %>
+    <% end %>
+
   </div>
   <nav>
       <ul class="pager">
-        <li class="pager-prev" style="float: left;"><a href="#">Newer</a></li>
-        <li class="pager-next" style="float: right;"><a href="#">Older</a></li>
+        <li class="pager-prev <%= 'disabled' unless @slots.previous_page %>" style="float: left;"><a href=<%= @slots.current_page == 1 ? '#' : "/?page=#{@slots.previous_page}" %>>Newer</a></li>
+        <li class="pager-prev  <%= 'disabled' unless @slots.next_page %>" style="float: right;"><a href=<%= @slots.current_page == @slots.total_pages ? '#' : "/?page=#{@slots.next_page}" %>>Older</a></li>
       </ul>
   </nav>
 

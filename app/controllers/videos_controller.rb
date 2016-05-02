@@ -54,7 +54,10 @@ class VideosController < ApplicationController
   # PATCH/PUT /videos/1/approve
   def approve
     video = Video.find(params[:id])
-    slot = Slot.available.first
+    # slot = Slot.available.first
+    slot = Slot.create(start_time: Time.now.beginning_of_hour, end_time: Time.now.beginning_of_hour + (15*60), type: video.type, genre: video.genre, user: video.user )
+    unless slot
+    end
     video.slot =slot
     redirect_to video
   end
@@ -63,8 +66,10 @@ class VideosController < ApplicationController
   def disapprove
     video = Video.find(params[:id])
     slot = video.slot
-    video.update(slot_id: nil)
-    slot.update(video_id: nil)
+    video.slot = nil
+    slot.destroy
+    # video.update(slot_id: nil)
+    # slot.update(video_id: nil)
     redirect_to video
   end
 
