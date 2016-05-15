@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'slots#index'
+  root 'users#home'
   resources :slots
   resources :videos
   resources :users
