@@ -8,7 +8,7 @@
 
 <body>
 
-    <div class="container" style="height: 800px;">
+    <div class="container">
 
         <script>
             // This is called with the results from from FB.getLoginStatus().
@@ -39,6 +39,9 @@
             // code below.
             function checkLoginState() {
                 FB.getLoginStatus(function (response) {
+                    console.log(JSON.stringify(response));
+                    console.log(response.email);
+                    console.log(response.name);
                     statusChangeCallback(response);
                 });
             }
@@ -85,6 +88,8 @@
             function testAPI() {
                 console.log('Welcome!  Fetching your information.... ');
                 FB.api('/me', function (response) {
+                    console.log(response.email);
+                    console.log(JSON.stringify(response));
                     console.log('Successful login for: ' + response.name);
                     document.getElementById('status').innerHTML =
                         'Thanks for logging in, ' + response.name + '!';
@@ -99,13 +104,18 @@
     -->
 
         <div style="text-align: center;">
-            <h3>With a few clicks...</h3>
             <h4>Share your talent with millions <strong style="color: green;">NOW!</strong></h4>
-
+            
+            <div style="vertical-align: center; margin-bottom: 20px;">
+                <h4 style="font-style: italic; display: inline-block;">I Got Talent <span class="glyphicon glyphicon-copyright-mark"></span> </h4>
+                <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" data-size="large">
+                </fb:login-button>
+            </div>
+            
             <div>
                 <iframe width="580" height="330" src="<%= " https://www.youtube.com/embed/#{youtube_video_id_of(@featured_video)} " %>" class="embed-responsive-item" frameborder="0" allowfullscreen></iframe>
             </div>
-
+            
             <div>
                 <div>
                     <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
@@ -117,13 +127,8 @@
                     <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
                 </div>
             </div>
-            <div style="vertical-align: center; ">
-                <h3 style="font-style: italic; display: inline-block;">I Got Talent <span class="glyphicon glyphicon-copyright-mark"></span> </h3>
-                <br>
-                <br>
-                <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" data-size="xlarge">
-                </fb:login-button>
-            </div>
+            
+
         </div>
     </div>
 
