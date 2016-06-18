@@ -5,7 +5,7 @@ class SlotsController < ApplicationController
   # GET /slots.json
   def index
     # @slots = Slot.order(:start_time)
-    @slots = Slot.paginate(page: params[:page], per_page: 3)
+    @slots = Slot.paginate(page: params[:page], per_page: 3).order('created_at DESC')
 
     # Slot.paginate
   end

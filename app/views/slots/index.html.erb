@@ -11,11 +11,12 @@
 
 <p>Wanna share your talent? <%= link_to 'Upload now!', new_video_path, class: 'btn-sm btn-success' %></p>
 
-    <h3>POPULAR</h3>
+  <h3>POPULAR</h3>
+  <hr>
   <div class="row">
     <nav class="col-lg-1">
         <ul class="pager">
-          <li class="pager-prev <%= 'disabled' unless @slots.previous_page %>" style="float: left;"><a href=<%= @slots.current_page == 1 ? '#' : "slots/?page=#{@slots.previous_page}" %>>Newer</a></li>
+          <li class="pager-prev <%= 'disabled' unless @slots.previous_page %>" style="float: left;"><a href=<%= @slots.current_page == 1 ? '#' : "/slots/?page=#{@slots.previous_page}" %>>Newer</a></li>
         </ul>
     </nav>
     <% @slots.each do |slot| %>
@@ -59,14 +60,23 @@
         </div>
         <% end %>
     <% end %>
+    <% ( (@slots.size+1)..3).each do %>
+        <div class="col-lg-3">
+          <div class="panel panel-success">
+            <div class="panel-heading">...</div>
+            <div class="panel-body">...</div>
+          </div>
+        </div>
+    <% end %>
     <nav class="col-lg-1">
         <ul class="pager">
-          <li class="pager-prev  <%= 'disabled' unless @slots.next_page %>"><a href=<%= @slots.current_page == @slots.total_pages ? '#' : "slots/?page=#{@slots.next_page}" %>>Older</a></li>
+          <li class="pager-prev  <%= 'disabled' unless @slots.next_page %>"><a href=<%= @slots.current_page == @slots.total_pages ? '#' : "/slots/?page=#{@slots.next_page}" %>>Older</a></li>
         </ul>
     </nav>
   </div>
     
-<h3>LATEST</h3>
+  <h3>LATEST</h3>
+  <hr>
  <div class="row">
      <div class="col-lg-1"></div>
     <% @slots.each do |slot| %>
@@ -111,12 +121,24 @@
         <% end %>
     <% end %>
 
-   <%= will_paginate style: 'margin-left: 365px;' %>
+    <% ( (@slots.size+1)..3).each do %>
+       <div class="col-lg-3">
+         <div class="panel panel-success">
+           <div class="panel-heading">...</div>
+           <div class="panel-body">...</div>
+         </div>
+       </div>
+    <% end %>
+
+   <div style="clear: both;">
+    <%= will_paginate style: 'margin-left: 365px;' %>
+   </div>
 
   </div>
 
 
-  <h3>Recommended for you</h3>
+  <h3>RECOMMENDED FOR YOU</h3>
+  <hr>
   <div class="row">
     <div class="col-lg-1"></div>
     <% @slots.each do |slot| %>
@@ -159,6 +181,15 @@
               </div>
             </div>
         <% end %>
+    <% end %>
+
+    <% ( (@slots.size+1)..3).each do %>
+        <div class="col-lg-3">
+          <div class="panel panel-success">
+            <div class="panel-heading">...</div>
+            <div class="panel-body">...</div>
+          </div>
+        </div>
     <% end %>
 
   </div>
