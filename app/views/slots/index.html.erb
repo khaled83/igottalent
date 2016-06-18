@@ -15,7 +15,7 @@
   <div class="row">
     <nav class="col-lg-1">
         <ul class="pager">
-          <li class="pager-prev <%= 'disabled' unless @slots.previous_page %>" style="float: left;"><a href=<%= @slots.current_page == 1 ? '#' : "/?page=#{@slots.previous_page}" %>>Newer</a></li>
+          <li class="pager-prev <%= 'disabled' unless @slots.previous_page %>" style="float: left;"><a href=<%= @slots.current_page == 1 ? '#' : "slots/?page=#{@slots.previous_page}" %>>Newer</a></li>
         </ul>
     </nav>
     <% @slots.each do |slot| %>
@@ -61,7 +61,7 @@
     <% end %>
     <nav class="col-lg-1">
         <ul class="pager">
-          <li class="pager-prev  <%= 'disabled' unless @slots.next_page %>"><a href=<%= @slots.current_page == @slots.total_pages ? '#' : "/?page=#{@slots.next_page}" %>>Older</a></li>
+          <li class="pager-prev  <%= 'disabled' unless @slots.next_page %>"><a href=<%= @slots.current_page == @slots.total_pages ? '#' : "slots/?page=#{@slots.next_page}" %>>Older</a></li>
         </ul>
     </nav>
   </div>
