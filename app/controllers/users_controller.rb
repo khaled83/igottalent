@@ -1,7 +1,9 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  # before_action :set_user, only: [:show, :edit, :update, :destroy]
+  after_action :authenticate_fb, only: [:home]
 
   def home
+    session[:fb_code] = params[:code] if params[:code]
     @featured_video = Video.last
   end
 
@@ -9,8 +11,8 @@ class UsersController < ApplicationController
 
   end
 
-  def login
-
+  def login_fb
+    redirect_to 'https://www.facebook.com/dialog/oauth?client_id=1812832325605603&redirect_uri=http://localhost:3000/slots'
   end
 
   def logout

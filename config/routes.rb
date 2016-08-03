@@ -3,7 +3,8 @@ Rails.application.routes.draw do
   resources :slots
   resources :videos
   resources :users
-  get 'users/:user_id/select' => 'users#select'
+  get 'users/select/:user_id' => 'users#select'
+  get 'login_fb' => 'users#login_fb'
   get 'upload/upload'
   get 'slots/:id/video/edit' => 'slots#video_edit'
   get 'slots/:id/video/update' => 'slots#video_update'

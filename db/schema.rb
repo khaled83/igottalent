@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160417073855) do
+ActiveRecord::Schema.define(version: 20160619075553) do
 
   create_table "slots", force: :cascade do |t|
     t.datetime "start_time"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20160417073855) do
     t.string   "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "fb_user_id"
   end
 
   create_table "videos", force: :cascade do |t|

@@ -21,8 +21,20 @@
             
             <div style="vertical-align: center; margin-bottom: 20px;">
                 <h4 style="font-style: italic; display: inline-block;">I Got Talent <span class="glyphicon glyphicon-copyright-mark"></span> </h4>
-                <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" data-size="large" autologoutlink=true >
-                </fb:login-button>
+                <!--<fb:login-button scope="public_profile,email" onlogin="checkLoginState();" data-size="large" autologoutlink=true >-->
+                <!--</fb:login-button>-->
+                <!--<a class="fb-login-button" data-size="large" href="/?fb_login=true">Log In X</a>-->
+              <div style="width: 260px; margin: 0 auto;">
+                <a href="/login_fb" class="btn btn-lg btn-block btn-social btn-facebook">
+                  <span class="fa fa-facebook"></span> Sign in with Facebook
+                </a>
+                <% if flash[:error] %>
+                    <br>
+                    <div class="alert alert-danger">
+                      <%= flash[:error] %>
+                    </div>
+                <% end %>
+              </div>
             </div>
             
             <div>

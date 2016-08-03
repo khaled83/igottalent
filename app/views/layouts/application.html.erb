@@ -6,6 +6,7 @@
 
   <!--Twitter Bootstrap -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <script src="https://use.fontawesome.com/dd1fae6742.js"></script>
 
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
@@ -18,7 +19,7 @@
     <li role="presentation" class="" style="text-align: rig"><a href="/videos">Queue</a></li>
     <% unless current_page? root_url %>
     <li role="presentation" class="" style="float: right; padding-top: 5px;">
-      <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" data-size="medium" autologoutlink=true >
+      <fb:login-button onlogin="checkLoginState();" data-size="medium" data-auto-logout-link="true">
       </fb:login-button>
     </li>
     <% end %>
@@ -46,13 +47,14 @@ function statusChangeCallback(response) {
     // for FB.getLoginStatus().
   if (response.status === 'connected') {
     // Logged into your app and Facebook.
+    localStorage.setItem('accessToken', response.authResponse.accessToken);
     doLogin();
-  } 
+  }
 //    else if (response.status === 'not_authorized') {
 //    // The person is logged into Facebook, but not your app.
 //    document.getElementById('status').innerHTML = 'Please log ' +
 //        'into this app.';
-//  } 
+//  }
     else {
     // The person is not logged into Facebook, so we're not sure if
     // they are logged into this app or not.
@@ -62,6 +64,10 @@ function statusChangeCallback(response) {
         window.location.pathname = "/";
     }
   }
+}
+
+function facebook_login() {
+  window.location.pathname = "/";
 }
 
 // This function is called when someone finishes with the Login
@@ -100,7 +106,7 @@ window.fbAsyncInit = function () {
     FB.getLoginStatus(function (response) {
         statusChangeCallback(response);
     });
-    
+
 };
 
 // Load the SDK asynchronously
@@ -119,10 +125,10 @@ function doLogin() {
     console.log('Welcome!  Fetching your information.... ');
     FB.api('/me', function (response) {
         console.log(JSON.stringify(response));
-        console.log('Successful login for: ' + response.name);
+        console.log('Successful login for: ' + response.name + ' : ' + response.accessToken + ' : ' + response.userID + ' : ' + response.signedRequest );
 //        document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.name + '!';
         if(window.location.pathname == "/") {
-            window.location.pathname = "/slots";
+            window.location = encodeURI(`slots?fb_user_id=${response.id}&fb_token=${localStorage.getItem('accessToken')}`);
         }
     });
 }

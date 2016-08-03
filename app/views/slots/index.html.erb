@@ -7,6 +7,12 @@
 
   <p id="notice"><%= notice %></p>
 
+  <% if flash[:message] %>
+      <div class="alert alert-success">
+        flash[:message]
+      </div>
+  <% end %>
+
 <p>Check out latest <em>I Got Talent</em> events!</p>
 
 <p>Wanna share your talent? <%= link_to 'Upload now!', new_video_path, class: 'btn-sm btn-success' %></p>
