@@ -15,7 +15,18 @@ class UsersController < ApplicationController
     redirect_to 'https://www.facebook.com/dialog/oauth?client_id=1812832325605603&redirect_uri=http://localhost:3000/slots'
   end
 
+  def logged_in_fb
+    puts 'loggedin_fb'
+    puts params
+    user = User.find_by(fb_user_id: params[:fb_user_id])
+    user.update(email: params[:fb_user_email])
+    user.save
+    debugger
+    head 200
+  end
+
   def logout
+    puts '** LOGOUT!'
 
   end
 

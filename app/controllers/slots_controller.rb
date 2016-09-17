@@ -5,10 +5,12 @@ class SlotsController < ApplicationController
   # GET /slots
   # GET /slots.json
   def index
+    puts '* params:'
+    puts params
     # debugger
     # @slots = Slot.order(:start_time)
     @slots = Slot.paginate(page: params[:page], per_page: 3).order('created_at DESC')
-    session[:fb_code] = params[:code] if params[:code]
+    # session[:fb_code] = params[:code] if params[:code]
 
     # Slot.paginate
   end

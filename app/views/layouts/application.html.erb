@@ -88,7 +88,8 @@ window.fbAsyncInit = function () {
         cookie: true, // enable cookies to allow the server to access
         // the session
         xfbml: true, // parse social plugins on this page
-        version: 'v2.5' // use graph api version 2.5
+        version: 'v2.6', // use graph api version 2.5
+        scope: 'email'
     });
 
     // Now that we've initialized the JavaScript SDK, we call
@@ -123,12 +124,20 @@ window.fbAsyncInit = function () {
 // successful.  See statusChangeCallback() for when this call is made.
 function doLogin() {
     console.log('Welcome!  Fetching your information.... ');
-    FB.api('/me', function (response) {
+    FB.api('/me', {fields: 'name, email'}, function (response) {
         console.log(JSON.stringify(response));
         console.log('Successful login for: ' + response.name + ' : ' + response.accessToken + ' : ' + response.userID + ' : ' + response.signedRequest );
+        console.log(window.location.pathname);
 //        document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.name + '!';
+      $.post( "/users/logged_in_fb", { fb_user_id: response.id, fb_token: localStorage.getItem('accessToken'), fb_user_email: response.email } );
+//      $.ajax({
+//        url: `/users/logged_in_fb?fb_user_id=${response.id}&fb_token=${localStorage.getItem('accessToken')}&fb_user_email=${response.email}`
+//      }).done(function(html) {
+////        return $("#results").append(html);
+//      });
         if(window.location.pathname == "/") {
-            window.location = encodeURI(`slots?fb_user_id=${response.id}&fb_token=${localStorage.getItem('accessToken')}`);
+            console.log(`redirecting to: slots?fb_user_id=${response.id}&fb_token=${localStorage.getItem('accessToken')}&fb_user_email=${response.email}`);
+            window.location = encodeURI(`slots?fb_user_id=${response.id}&fb_token=${localStorage.getItem('accessToken')}&fb_user_email=${response.email}`);
         }
     });
 }
