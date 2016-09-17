@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
-  # before_action :set_user, only: [:show, :edit, :update, :destroy]
-  after_action :authenticate_fb, only: [:home]
+  after_action :authenticate_fb, except: [:home, :login_fb, :logged_in_fb, :logged_out_fb]
 
   def home
     session[:fb_code] = params[:code] if params[:code]
@@ -16,18 +15,19 @@ class UsersController < ApplicationController
   end
 
   def logged_in_fb
-    puts 'loggedin_fb'
-    puts params
     user = User.find_by(fb_user_id: params[:fb_user_id])
-    user.update(email: params[:fb_user_email])
-    user.save
-    debugger
+    user.update(email: params[:fb_user_email], name: params[:fb_user_name]) if user
     head 200
   end
 
-  def logout
-    puts '** LOGOUT!'
+  def logged_out_fb
+    nullify_current_user
+    head 200
+  end
 
+  def logout_fb
+    nullify_current_user
+    # redirect_to root_url
   end
 
   # GET /users

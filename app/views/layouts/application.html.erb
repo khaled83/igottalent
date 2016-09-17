@@ -2,7 +2,7 @@
 <html>
 <head>
   <title><%= full_title(yield(:page_title)) %></title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
 
   <!--Twitter Bootstrap -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -18,13 +18,15 @@
     <li role="presentation" class=""><a href="/slots">Home</a></li>
     <li role="presentation" class="" style="text-align: rig"><a href="/videos">Queue</a></li>
     <% unless current_page? root_url %>
-    <li role="presentation" class="" style="float: right; padding-top: 5px;">
-      <fb:login-button onlogin="checkLoginState();" data-size="medium" data-auto-logout-link="true">
-      </fb:login-button>
-    </li>
+        <li role="presentation" class="" style="float: right; padding-top: 5px;">
+          <fb:login-button onlogin="checkLoginState();" data-size="medium" data-auto-logout-link="true">
+          </fb:login-button>
+        </li>
     <% end %>
-    <li role="presentation" class="" style="float: right;"><%= link_to '', current_user, class: 'glyphicon glyphicon-user' %> </li>
-    <li role="presentation" class="" style="float: right;"><%= link_to current_user.name, current_user %> </li>
+    <% if current_user %>
+        <li role="presentation" class="" style="float: right;"><%= link_to '', current_user, class: 'glyphicon glyphicon-user' %> </li>
+        <li role="presentation" class="" style="float: right;"><%= link_to current_user.name, current_user %> </li>
+    <% end %>
   </ul>
 </nav>
 <hr style="margin-top: 0;">
@@ -37,59 +39,53 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
 <script>
-// This is called with the results from from FB.getLoginStatus().
-function statusChangeCallback(response) {
+  // This is called with the results from from FB.getLoginStatus().
+  function statusChangeCallback(response) {
     console.log('statusChangeCallback');
     console.log(response);
     // The response object is returned with a status field that lets the
     // app know the current login status of the person.
     // Full docs on the response object can be found in the documentation
     // for FB.getLoginStatus().
-  if (response.status === 'connected') {
-    // Logged into your app and Facebook.
-    localStorage.setItem('accessToken', response.authResponse.accessToken);
-    doLogin();
-  }
-//    else if (response.status === 'not_authorized') {
-//    // The person is logged into Facebook, but not your app.
-//    document.getElementById('status').innerHTML = 'Please log ' +
-//        'into this app.';
-//  }
+    if (response.status === 'connected') {
+      // Logged into your app and Facebook.
+      localStorage.setItem('accessToken', response.authResponse.accessToken);
+      doLogin();
+    }
+    else if (response.status === 'not_authorized') {
+      // The person is logged into Facebook, but not your app.
+    }
     else {
-    // The person is not logged into Facebook, so we're not sure if
-    // they are logged into this app or not.
-//    document.getElementById('status').innerHTML = 'Please log ' +
-//        'into Facebook.';
-    if(window.location.pathname != "/") {
+      // The person is not logged into Facebook, so we're not sure if
+      // they are logged into this app or not.
+      if (window.location.pathname != "/") {
         window.location.pathname = "/";
+      }
     }
   }
-}
 
-function facebook_login() {
-  window.location.pathname = "/";
-}
+  function facebook_login() {
+    window.location.pathname = "/";
+  }
 
-// This function is called when someone finishes with the Login
-// Button.  See the onlogin handler attached to it in the sample
-// code below.
-function checkLoginState() {
+  // This function is called when someone finishes with the Login
+  // Button.  See the onlogin handler attached to it in the sample
+  // code below.
+  function checkLoginState() {
     FB.getLoginStatus(function (response) {
-        console.log(JSON.stringify(response));
-        console.log(response.email);
-        console.log(response.name);
-        statusChangeCallback(response);
+      console.log(JSON.stringify(response));
+      statusChangeCallback(response);
     });
-}
+  }
 
-window.fbAsyncInit = function () {
+  window.fbAsyncInit = function () {
     FB.init({
-        appId: '1812832325605603',
-        cookie: true, // enable cookies to allow the server to access
-        // the session
-        xfbml: true, // parse social plugins on this page
-        version: 'v2.6', // use graph api version 2.5
-        scope: 'email'
+      appId: '1812832325605603',
+      cookie: true, // enable cookies to allow the server to access
+      // the session
+      xfbml: true, // parse social plugins on this page
+      version: 'v2.6', // use graph api version 2.5
+      scope: 'email'
     });
 
     // Now that we've initialized the JavaScript SDK, we call
@@ -105,42 +101,42 @@ window.fbAsyncInit = function () {
     // These three cases are handled in the callback function.
 
     FB.getLoginStatus(function (response) {
-        statusChangeCallback(response);
+      statusChangeCallback(response);
     });
 
-};
+    FB.Event.subscribe("auth.logout", function () {
+      $.post("/users/logged_out_fb");
+    });
 
-// Load the SDK asynchronously
-(function (d, s, id) {
+  };
+
+  // Load the SDK asynchronously
+  (function (d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
     if (d.getElementById(id)) return;
     js = d.createElement(s);
     js.id = id;
     js.src = "//connect.facebook.net/en_US/sdk.js";
     fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
+  }(document, 'script', 'facebook-jssdk'));
 
-// Here we run a very simple test of the Graph API after login is
-// successful.  See statusChangeCallback() for when this call is made.
-function doLogin() {
+  // Here we run a very simple test of the Graph API after login is
+  // successful.  See statusChangeCallback() for when this call is made.
+  function doLogin() {
     console.log('Welcome!  Fetching your information.... ');
     FB.api('/me', {fields: 'name, email'}, function (response) {
-        console.log(JSON.stringify(response));
-        console.log('Successful login for: ' + response.name + ' : ' + response.accessToken + ' : ' + response.userID + ' : ' + response.signedRequest );
-        console.log(window.location.pathname);
-//        document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.name + '!';
-      $.post( "/users/logged_in_fb", { fb_user_id: response.id, fb_token: localStorage.getItem('accessToken'), fb_user_email: response.email } );
-//      $.ajax({
-//        url: `/users/logged_in_fb?fb_user_id=${response.id}&fb_token=${localStorage.getItem('accessToken')}&fb_user_email=${response.email}`
-//      }).done(function(html) {
-////        return $("#results").append(html);
-//      });
-        if(window.location.pathname == "/") {
-            console.log(`redirecting to: slots?fb_user_id=${response.id}&fb_token=${localStorage.getItem('accessToken')}&fb_user_email=${response.email}`);
-            window.location = encodeURI(`slots?fb_user_id=${response.id}&fb_token=${localStorage.getItem('accessToken')}&fb_user_email=${response.email}`);
-        }
+      console.log(JSON.stringify(response));
+      $.post("/users/logged_in_fb", {
+        fb_user_id: response.id,
+        fb_token: localStorage.getItem('accessToken'),
+        fb_user_email: response.email,
+        fb_user_name: response.name
+      });
+      if (window.location.pathname == "/") {
+        window.location = encodeURI(`slots?fb_user_id=${response.id}&fb_token=${localStorage.getItem('accessToken')}&fb_user_email=${response.email}`);
+      }
     });
-}
+  }
 </script>
 </body>
 </html>
