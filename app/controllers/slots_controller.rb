@@ -5,14 +5,9 @@ class SlotsController < ApplicationController
   # GET /slots
   # GET /slots.json
   def index
-    puts '* params:'
-    puts params
-    # debugger
     # @slots = Slot.order(:start_time)
     @slots = Slot.paginate(page: params[:page], per_page: 3).order('created_at DESC')
     # session[:fb_code] = params[:code] if params[:code]
-
-    # Slot.paginate
   end
 
   # GET /slots/1
@@ -77,6 +72,32 @@ class SlotsController < ApplicationController
       format.html { redirect_to slots_url, notice: 'Slot was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def like
+    video_url = params[:id]
+    user_id = current_user.id
+    # skip if this video already liked before
+    unless Like.liked?(video_url, user_id)
+      dislike = Like.find_by( video: video_url, user: user_id, liked: false )
+      dislike.delete if dislike
+      # new like
+      Like.create( video: video_url, user: user_id, liked: true )
+    end
+    redirect_to slots_path
+  end
+
+  def dislike
+    video_url = params[:id]
+    user_id = current_user.id
+    # skip if this video already liked before
+    unless Like.disliked?(video_url, user_id)
+      like = Like.find_by( video: video_url, user: user_id, liked: true )
+      like.delete if like
+      # new dislike
+      Like.create( video: video_url, user: user_id, liked: false )
+    end
+    redirect_to slots_path
   end
 
   private

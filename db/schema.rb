@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160619075553) do
+ActiveRecord::Schema.define(version: 20170115133800) do
+
+  create_table "likes", force: :cascade do |t|
+    t.integer  "video"
+    t.integer  "user"
+    t.boolean  "liked"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "slots", force: :cascade do |t|
     t.datetime "start_time"

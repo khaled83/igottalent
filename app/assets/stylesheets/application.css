@@ -23,3 +23,7 @@ nav#mainMenu {
     width: 1024px;
     margin: 0 auto;
 }
+
+div.panel div.panel-heading {
+    min-height: 61px;
+}

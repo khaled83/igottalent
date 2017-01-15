@@ -17,8 +17,10 @@
 
 <p>Wanna share your talent? <%= link_to 'Upload now!', new_video_path, class: 'btn-sm btn-success' %></p>
 
-  <h3>POPULAR</h3>
-  <hr>
+  <!-- Popular videos -->
+  <div class="page-header">
+    <h1 style="font-variant: small-caps;">Popular <small>Videos most visited by everyone</small></h1>
+  </div>
   <div class="row">
     <nav class="col-lg-1">
         <ul class="pager">
@@ -43,14 +45,26 @@
                   </div>
                   <br>
                   <div style="float: left;">
-                    <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-                    <button type="button" class="btn btn-success btn-xs">Like</button>
-                    <small>100,250 </small>
+                    <!-- Current user didn't like this video before? -->
+                    <% unless Like.liked?( slot.video.id, current_user.id ) %>
+                      <i class="fa fa-thumbs-o-up" style="font-size: 18px;" aria-hidden="true"></i>
+                      <%= link_to 'Like', "/slots/#{slot.video.id}/like", method: :post, class: 'btn btn-success btn-xs' %>
+                    <% else %>
+                      <i class="fa fa-thumbs-up" style="font-size: 18px;" aria-hidden="true"></i>
+                    <% end %>
+                    <!-- How many people liked this video? -->
+                    <small><%= Like.like_count( slot.video.id ) %></small>
                   </div>
+
                   <div style="float: right;;">
-                    <small>80,115 </small>
-                    <button type="button" class="btn btn-danger btn-xs">Dislike</button>
-                    <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+                    <!-- Current user didn't dislike this video before? -->
+                    <small><%= Like.dislike_count( slot.video.id ) %></small>
+                    <% unless Like.disliked?( slot.video.id, current_user.id ) %>
+                        <%= link_to 'Dislike', "/slots/#{slot.video.id}/dislike", method: :post, class: 'btn btn-danger btn-xs' %>
+                        <i class="fa fa-thumbs-o-down" style="font-size: 18px;" aria-hidden="true"></i>
+                    <% else %>
+                        <i class="fa fa-thumbs-down" style="font-size: 18px;" aria-hidden="true"></i>
+                    <% end %>
                   </div>
               <% else %>
                   <address>
@@ -80,9 +94,11 @@
         </ul>
     </nav>
   </div>
-    
-  <h3>LATEST</h3>
-  <hr>
+
+  <!-- Latest Videos -->
+  <div class="page-header">
+    <h1 style="font-variant: small-caps;">Latest <small>Stay up to date with new stuff</small></h1>
+  </div>
  <div class="row">
      <div class="col-lg-1"></div>
     <% @slots.each do |slot| %>
@@ -103,14 +119,26 @@
                   </div>
                   <br>
                   <div style="float: left;">
-                    <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-                    <button type="button" class="btn btn-success btn-xs">Like</button>
-                    <small>100,250 </small>
+                    <!-- Current user didn't like this video before? -->
+                    <% unless Like.liked?( slot.video.id, current_user.id ) %>
+                      <i class="fa fa-thumbs-o-up" style="font-size: 18px;" aria-hidden="true"></i>
+                      <%= link_to 'Like', "/slots/#{slot.video.id}/like", method: :post, class: 'btn btn-success btn-xs' %>
+                    <% else %>
+                      <i class="fa fa-thumbs-up" style="font-size: 18px;" aria-hidden="true"></i>
+                    <% end %>
+                    <!-- How many people liked this video? -->
+                    <small><%= Like.like_count( slot.video.id ) %></small>
                   </div>
+
                   <div style="float: right;;">
-                    <small>80,115 </small>
-                    <button type="button" class="btn btn-danger btn-xs">Dislike</button>
-                    <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+                    <!-- Current user didn't dislike this video before? -->
+                    <small><%= Like.dislike_count( slot.video.id ) %></small>
+                    <% unless Like.disliked?( slot.video.id, current_user.id ) %>
+                        <%= link_to 'Dislike', "/slots/#{slot.video.id}/dislike", method: :post, class: 'btn btn-danger btn-xs' %>
+                        <i class="fa fa-thumbs-o-down" style="font-size: 18px;" aria-hidden="true"></i>
+                    <% else %>
+                        <i class="fa fa-thumbs-down" style="font-size: 18px;" aria-hidden="true"></i>
+                    <% end %>
                   </div>
               <% else %>
                   <address>
@@ -142,9 +170,10 @@
 
   </div>
 
-
-  <h3>RECOMMENDED FOR YOU</h3>
-  <hr>
+  <!-- Recommended Videos -->
+  <div class="page-header">
+    <h1 style="font-variant: small-caps;">Recommended <small>We think you will like these videos</small></h1>
+  </div>
   <div class="row">
     <div class="col-lg-1"></div>
     <% @slots.each do |slot| %>
@@ -165,14 +194,26 @@
                       </div>
                       <br>
                       <div style="float: left;">
-                        <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-                        <button type="button" class="btn btn-success btn-xs">Like</button>
-                        <small>100,250 </small>
+                        <!-- Current user didn't like this video before? -->
+                        <% unless Like.liked?( slot.video.id, current_user.id ) %>
+                          <i class="fa fa-thumbs-o-up" style="font-size: 18px;" aria-hidden="true"></i>
+                          <%= link_to 'Like', "/slots/#{slot.video.id}/like", method: :post, class: 'btn btn-success btn-xs' %>
+                        <% else %>
+                          <i class="fa fa-thumbs-up" style="font-size: 18px;" aria-hidden="true"></i>
+                        <% end %>
+                        <!-- How many people liked this video? -->
+                        <small><%= Like.like_count( slot.video.id ) %></small>
                       </div>
+
                       <div style="float: right;;">
-                        <small>80,115 </small>
-                        <button type="button" class="btn btn-danger btn-xs">Dislike</button>
-                        <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+                        <!-- Current user didn't dislike this video before? -->
+                        <small><%= Like.dislike_count( slot.video.id ) %></small>
+                        <% unless Like.disliked?( slot.video.id, current_user.id ) %>
+                            <%= link_to 'Dislike', "/slots/#{slot.video.id}/dislike", method: :post, class: 'btn btn-danger btn-xs' %>
+                            <i class="fa fa-thumbs-o-down" style="font-size: 18px;" aria-hidden="true"></i>
+                        <% else %>
+                            <i class="fa fa-thumbs-down" style="font-size: 18px;" aria-hidden="true"></i>
+                        <% end %>
                       </div>
                   <% else %>
                       <address>

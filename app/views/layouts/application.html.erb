@@ -6,6 +6,7 @@
 
   <!--Twitter Bootstrap -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <link href="/assets/sticky-footer.css" rel="stylesheet">
   <script src="https://use.fontawesome.com/dd1fae6742.js"></script>
 
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
@@ -34,7 +35,7 @@
 <%= yield %>
 
 <hr style="margin-top: 100px;">
-<%= debug(params) if Rails.env.development? %>
+<!--<%= debug(params) if Rails.env.development? %>-->
 <!-- Twitter Bootstrap -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
@@ -138,5 +139,12 @@
     });
   }
 </script>
+
+<footer class="footer">
+    <div class="container">
+        <p class="text-muted">&copy; I Got Talent 2017</p>
+    </div>
+</footer>
+    
 </body>
 </html>
