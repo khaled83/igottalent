@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
       fb_user_id = session[:fb_user_id]
       uri = URI('https://graph.facebook.com/v2.6/oauth/access_token?')
       params = { :client_id => '1812832325605603',
-                 :redirect_uri => URI::encode('http://localhost:3000/slots'),
+                 :redirect_uri => URI::encode("#{request.base_url}/slots"),
                  :client_secret => '69d32dbd464203eb287eafb29cc6aa69',
                  :code => fb_code,
                  :scope => 'email' }

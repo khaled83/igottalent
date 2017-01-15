@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   end
 
   def login_fb
-    redirect_to 'https://www.facebook.com/dialog/oauth?client_id=1812832325605603&redirect_uri=http://localhost:3000/slots'
+    redirect_to "https://www.facebook.com/dialog/oauth?client_id=1812832325605603&redirect_uri=#{request.base_url}/slots"
   end
 
   def logged_in_fb

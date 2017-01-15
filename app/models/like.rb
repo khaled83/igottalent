@@ -15,7 +15,7 @@ class Like < ActiveRecord::Base
   end
 
   def self.dislike_count( video_id )
-    Like.where( video: video_id, liked: false ).count + 900
+    Like.where( video: video_id, liked: false ).count + 1000
   end
 
 end
