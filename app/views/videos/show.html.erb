@@ -9,7 +9,7 @@
   <% if @video.slot and @video.slot.start_time <= Time.now %>
     <span class="label label-success">Live</span>
     <br>
-    <small> 125,000+ people viewed your video!</small>
+    <small> 125,000+ people viewed this!</small>
     <br>
   <% elsif @video.slot %>
     <span class="label label-primary">Queuing</span>
@@ -63,6 +63,32 @@
   <%= link_to 'Edit', edit_video_path(@video) %> |
   <%= link_to 'Back', videos_path %> |
   <%= link_to 'Slots', slots_path %>
+
+    <br><br>
+    <!-- Like/Dislike -->
+    <div style="float: left; width: 560px; clear: both;">
+      <!-- Current user didn't like this video before? -->
+      <% unless Like.liked?( @video.id, current_user.id ) %>
+          <i class="fa fa-thumbs-o-up" style="font-size: 18px;" aria-hidden="true"></i>
+          <%= link_to 'Like', "/videos/#{@video.id}/like", method: :post, class: 'btn btn-success btn-xs' %>
+      <% else %>
+          <i class="fa fa-thumbs-up" style="font-size: 18px;" aria-hidden="true"></i>
+      <% end %>
+      <!-- How many people liked this video? -->
+      <small style="color: green;"><%= Like.like_count( @video.id ) %> liked this video <%= ' including you' if Like.liked?( @video.id, current_user.id ) %></small>
+
+      <div style="float: right;">
+        <!-- Current user didn't dislike this video before? -->
+        <small style="color: red;"><%= Like.dislike_count( @video.id ) %> people disliked this video</small>
+        <%= ' including you' if Like.disliked?( @video.id, current_user.id ) %>
+        <% unless Like.disliked?( @video.id, current_user.id ) %>
+            <%= link_to 'Dislike', "/videos/#{@video.id}/dislike", method: :post, class: 'btn btn-danger btn-xs' %>
+            <i class="fa fa-thumbs-o-down" style="font-size: 18px;" aria-hidden="true"></i>
+        <% else %>
+            <i class="fa fa-thumbs-down" style="font-size: 18px;" aria-hidden="true"></i>
+        <% end %>
+      </div>
+    </div>
 
   <br><br>
   <% if @video.slot %>

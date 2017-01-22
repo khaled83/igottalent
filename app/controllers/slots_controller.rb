@@ -75,28 +75,12 @@ class SlotsController < ApplicationController
   end
 
   def like
-    video_url = params[:id]
-    user_id = current_user.id
-    # skip if this video already liked before
-    unless Like.liked?(video_url, user_id)
-      dislike = Like.find_by( video: video_url, user: user_id, liked: false )
-      dislike.delete if dislike
-      # new like
-      Like.create( video: video_url, user: user_id, liked: true )
-    end
+    LikeVideo.like(params[:id], current_user.id)
     redirect_to slots_path
   end
 
   def dislike
-    video_url = params[:id]
-    user_id = current_user.id
-    # skip if this video already liked before
-    unless Like.disliked?(video_url, user_id)
-      like = Like.find_by( video: video_url, user: user_id, liked: true )
-      like.delete if like
-      # new dislike
-      Like.create( video: video_url, user: user_id, liked: false )
-    end
+    LikeVideo.dislike(params[:id], current_user.id)
     redirect_to slots_path
   end
 

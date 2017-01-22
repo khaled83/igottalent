@@ -23,5 +23,7 @@ Rails.application.routes.draw do
   get 'videos/:id/slot/edit' => 'videos#slot_update'
   post 'videos/:id/approve' => 'videos#approve'
   post 'videos/:id/disapprove' => 'videos#disapprove'
+  post 'videos/:id/like' => 'videos#like'
+  post 'videos/:id/dislike' => 'videos#dislike'
 
 end

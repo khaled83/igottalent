@@ -73,6 +73,16 @@ class VideosController < ApplicationController
     redirect_to video
   end
 
+  def like
+    LikeVideo.like(params[:id], current_user.id)
+    redirect_to video_path(params[:id])
+  end
+
+  def dislike
+    LikeVideo.dislike(params[:id], current_user.id)
+    redirect_to video_path(params[:id])
+  end
+
   # DELETE /videos/1
   # DELETE /videos/1.json
   def destroy
