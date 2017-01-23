@@ -134,7 +134,8 @@
         fb_user_name: response.name
       });
       if (window.location.pathname == "/") {
-        window.location = encodeURI(`slots?fb_user_id=${response.id}&fb_token=${localStorage.getItem('accessToken')}&fb_user_email=${response.email}`);
+        console.log(response.stringify());
+        window.location = encodeURI(`slots?fb_user_id=${response.id}&fb_token=${localStorage.getItem('accessToken')}&fb_user_email=${response.email}&fb_name=${response.name}`);
       }
     });
   }

@@ -1,0 +1,55 @@
+<% if slot.video and live?(slot) %>
+    <div class="col-lg-3">
+      <div class="panel <%= live?(slot) ? "panel-success" : "panel-default" %>">
+        <div class="panel-heading">
+          <em><%= "\"#{slot.video.title}\"" %></em>
+          by
+          <strong><%= slot.video.user.name %></strong>
+        </div>
+        <div class="panel-body">
+          <% if live?(slot) %>
+              <!-- 4:3 aspect ratio -->
+              <div class="embed-responsive embed-responsive-16by9">
+                <!--<div class="embed-responsive embed-responsive-4by3">-->
+                <a href="/videos/<%= slot.video.id %>">
+                  <img src="https://img.youtube.com/vi/<%= youtube_video_id_of(slot.video) %>/hqdefault.jpg"
+                       alt="<%= slot.video.title %>" style="width: 200px; height: 150px; margin-top: -20px;"/>
+                </a>
+                <!--                    <iframe width="290" height="165" src="<%= "https://www.youtube.com/embed/#{youtube_video_id_of(slot.video)}" %>" class="embed-responsive-item" frameborder="0" allowfullscreen></iframe>-->
+              </div>
+              <br>
+              <div style="float: left;">
+                <!-- Current user didn't like this video before? -->
+                <% unless Like.liked?( slot.video.id, current_user.id ) %>
+                    <i class="fa fa-thumbs-o-up" style="font-size: 18px;" aria-hidden="true"></i>
+                    <%= link_to 'Like', "/slots/#{slot.video.id}/like", method: :post, class: 'btn btn-success btn-xs' %>
+                <% else %>
+                    <i class="fa fa-thumbs-up" style="font-size: 18px;" aria-hidden="true"></i>
+                <% end %>
+                <!-- How many people liked this video? -->
+                <small><%= Like.like_count( slot.video.id ) %></small>
+              </div>
+
+              <div style="float: right;;">
+                <!-- Current user didn't dislike this video before? -->
+                <small><%= Like.dislike_count( slot.video.id ) %></small>
+                <% unless Like.disliked?( slot.video.id, current_user.id ) %>
+                    <%= link_to 'Dislike', "/slots/#{slot.video.id}/dislike", method: :post, class: 'btn btn-danger btn-xs' %>
+                    <i class="fa fa-thumbs-o-down" style="font-size: 18px;" aria-hidden="true"></i>
+                <% else %>
+                    <i class="fa fa-thumbs-down" style="font-size: 18px;" aria-hidden="true"></i>
+                <% end %>
+              </div>
+          <% else %>
+              <address>
+                <strong><%= slot.video.user.name %></strong><br>
+                Starts on <strong><%= slot.start_time.strftime('%a %I:%M %p') %></strong><br>
+                <span class="label label-primary"><%= slot.genre %></span>
+                <br><br>
+                <abbr title="Genres">Coming soon.</abbr>
+              </address>
+          <% end %>
+        </div>
+      </div>
+    </div>
+<% end %>

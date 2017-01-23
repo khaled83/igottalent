@@ -24,6 +24,7 @@ class ApplicationController < ActionController::Base
       fb_code = session[:fb_code]
       session[:fb_user_id] = params[:fb_user_id] || session[:fb_user_id]
       session[:fb_user_email] = params[:fb_user_email] || session[:fb_user_email]
+      # session[:fb_name] = params[:fb_name] || session[:fb_name]
       fb_user_id = session[:fb_user_id]
       uri = URI('https://graph.facebook.com/v2.6/oauth/access_token?')
       params = { :client_id => '1812832325605603',
@@ -49,6 +50,9 @@ class ApplicationController < ActionController::Base
           user = User.create(fb_user_id: fb_user_id)
           flash[:message] = 'Welcome to I Got Talent!'
         end
+
+        # user.update_attributes(fb_user_id: session[:fb_user_id], email: session[:fb_user_email], fb_user_email: session[:fb_user_email], fb_name: session[:fb_name])
+        # user.save
         set_current_user(user.id)
       end
     end
