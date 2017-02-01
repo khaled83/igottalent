@@ -1,8 +1,21 @@
 module ApplicationHelper
 
+  # retrieve current user based on fb_user_id and store it in variable @current_user
   def current_user
-    user_id = session[:user_id]
-    User.find(user_id) if user_id
+    # puts "** session[:fb_user_id]=#{session[:fb_user_id]}"
+    User.find_by(fb_user_id: session[:fb_user_id]) if session[:fb_user_id]
+  end
+
+  def nullify_current_user
+    session.delete(:user_id)
+    session.delete(:fb_code)
+    session.delete(:fb_user_id)
+    session.delete(:fb_user_email)
+    reset_session
+  end
+
+  def set_current_user(user_id)
+    session[:user_id] = user_id
   end
 
   def full_title(page_title)

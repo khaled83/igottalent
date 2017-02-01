@@ -5,6 +5,7 @@ class SlotsController < ApplicationController
   # GET /slots
   # GET /slots.json
   def index
+    Rails.logger.info "Slots#index fb_user_id=#{session[:fb_user_id]} : @current_user=#{@current_user} : current_user=#{current_user}"
     # number of items per page
     cur_page = params[:page]
     per_page = 3
@@ -15,7 +16,6 @@ class SlotsController < ApplicationController
       filling_count = per_page - @slots.length
       @filling_slots = Slot.paginate(page: cur_page.to_i-1, per_page: filling_count).order('created_at DESC')
     end
-    puts "*** #Slots = #{@slots.length}"
     # session[:fb_code] = params[:code] if params[:code]
   end
 

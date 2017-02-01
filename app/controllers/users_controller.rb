@@ -1,23 +1,19 @@
 class UsersController < ApplicationController
-  after_action :authenticate_fb, except: [:home, :login_fb, :logged_in_fb, :logged_out_fb]
+  # before_action :authenticate_fb, except: [:home, :login_fb, :logged_in_fb, :logged_out_fb]
 
   def home
-    session[:fb_code] = params[:code] if params[:code]
     @featured_video = Video.last
+    Rails.logger.info "Users#home fb_user_id=#{session[:fb_user_id]} : @current_user=#{@current_user} : current_user=#{current_user}"
+    if current_user
+      redirect_to slots_path and return
+    end
   end
 
   def sign_up
-
   end
 
   def login_fb
     redirect_to "https://www.facebook.com/dialog/oauth?client_id=1812832325605603&redirect_uri=#{request.base_url}/slots"
-  end
-
-  def logged_in_fb
-    user = User.find_by(fb_user_id: params[:fb_user_id])
-    user.update(email: params[:fb_user_email], name: params[:fb_user_name]) if user
-    head 200
   end
 
   def logged_out_fb
@@ -27,7 +23,7 @@ class UsersController < ApplicationController
 
   def logout_fb
     nullify_current_user
-    # redirect_to root_url
+    redirect_to root_url
   end
 
   # GET /users

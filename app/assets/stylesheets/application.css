@@ -27,3 +27,8 @@ nav#mainMenu {
 div.panel div.panel-heading {
     min-height: 61px;
 }
+
+/* fixing a problem with visited facebook login button color turning into gray */
+a.btn-facebook:visited {
+    color: white;
+}

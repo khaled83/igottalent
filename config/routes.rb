@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   get 'users/select/:user_id' => 'users#select'
   post 'users/logged_in_fb' => 'users#logged_in_fb'
   post 'users/logged_out_fb' => 'users#logged_out_fb'
-  get 'users/logout' => 'users#logout'
+  get 'logout' => 'users#logout_fb'
   get 'login_fb' => 'users#login_fb'
 
   # SLOTS
