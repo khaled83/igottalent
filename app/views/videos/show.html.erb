@@ -54,7 +54,7 @@
     <%= @video.user %>
   </p> -->
 
-  <% if is_admin? or @video.user == current_user or (@video.slot and @video.slot.start_time <= Time.now)  %>
+  <% if is_admin_view? or @video.user == current_user or (@video.slot and @video.slot.start_time <= Time.now)  %>
     <iframe width="560" height="315" src="<%= "https://www.youtube.com/embed/#{youtube_video_id}" %>" frameborder="0" allowfullscreen></iframe>
   <% end %>
 
@@ -91,7 +91,7 @@
     </div>
 
   <br><br>
-  <% if is_admin? %>
+  <% if is_admin_view? %>
     <% if @video.slot %>
       <%= link_to 'Disapprove', "/videos/#{@video.id}/disapprove", method: :post, class: 'btn btn-danger' %>
     <% else %>

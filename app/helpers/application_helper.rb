@@ -18,8 +18,12 @@ module ApplicationHelper
     session[:user_id] = user_id
   end
 
-  def is_admin?
-    current_user.is_admin and session[:is_admin] == 'true'
+  def is_admin_view?
+    current_user and current_user.is_admin and session[:is_admin] == 'true'
+  end
+
+  def is_admin_user?
+    current_user and current_user.is_admin
   end
 
   def full_title(page_title)

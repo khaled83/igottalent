@@ -22,7 +22,7 @@
     <li role="presentation" class="">
       <%= link_to 'Home', slots_path %>
     </li>
-    <% if is_admin? %>
+    <% if is_admin_view? %>
     <li role="presentation" class="" style="text-align: rig">
       <%= link_to 'Queue', videos_path %>
     </li>
@@ -33,9 +33,9 @@
           </fb:login-button>
         </li>
     <% end %>
-    <% if current_user.is_admin %>
+    <% if is_admin_user? %>
         <li role="presentation" class="" style="float: right; padding-top: 5px; padding-right: 5px;">
-          <input type="checkbox" <%= is_admin? ? 'checked' : '' %> id="toggle-event" data-toggle="toggle" data-size="mini" data-on="Admin" data-off="User">
+          <input type="checkbox" <%= is_admin_view? ? 'checked' : '' %> id="toggle-event" data-toggle="toggle" data-size="mini" data-on="Admin" data-off="User">
         </li>
 
         <!--<li role="presentation" class="" style="float: right;"><%= link_to '', current_user, class: 'glyphicon glyphicon-user' %> </li>-->
