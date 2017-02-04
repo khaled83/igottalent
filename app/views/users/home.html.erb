@@ -43,11 +43,11 @@
             <div>
                 <div>
                     <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-                    <button type="button" class="btn btn-success btn-xs">Like</button>
-                    <small>100,250 </small>
+                    <!--<button type="button" class="btn btn-success btn-xs">Like</button>-->
+                    <small style="color: green;"><%= Like.like_count(@featured_video.id) %> liked this</small>
                     <small>...</small>
-                    <small>80,115 </small>
-                    <button type="button" class="btn btn-danger btn-xs">Dislike</button>
+                    <small style="color: red;"><%= Like.dislike_count(@featured_video.id) - 950 %> disliked</small>
+                    <!--<button type="button" class="btn btn-danger btn-xs">Dislike</button>-->
                     <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
                 </div>
             </div>

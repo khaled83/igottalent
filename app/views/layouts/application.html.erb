@@ -8,6 +8,8 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
   <link href="/assets/sticky-footer.css" rel="stylesheet">
   <script src="https://use.fontawesome.com/dd1fae6742.js"></script>
+  <!-- Bootstrap Toggle Button -->
+  <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
@@ -20,19 +22,25 @@
     <li role="presentation" class="">
       <%= link_to 'Home', slots_path %>
     </li>
+    <% if is_admin? %>
     <li role="presentation" class="" style="text-align: rig">
       <%= link_to 'Queue', videos_path %>
     </li>
+    <% end %>
     <% unless current_page? root_url %>
         <li role="presentation" class="" style="float: right; padding-top: 5px">
           <fb:login-button onlogin="checkLoginState();" data-size="medium" data-auto-logout-link="true">
           </fb:login-button>
         </li>
     <% end %>
-    <!--<% if current_user %>-->
+    <% if current_user %>
+        <li role="presentation" class="" style="float: right; padding-top: 5px; padding-right: 5px;">
+          <input type="checkbox" <%= is_admin? ? 'checked' : '' %> id="toggle-event" data-toggle="toggle" data-size="mini" data-on="Admin" data-off="User">
+        </li>
+
         <!--<li role="presentation" class="" style="float: right;"><%= link_to '', current_user, class: 'glyphicon glyphicon-user' %> </li>-->
         <!--<li role="presentation" class="" style="float: right;"><%= link_to current_user.name, current_user %> </li>-->
-    <!--<% end %>-->
+    <% end %>
   </ul>
 </nav>
 <hr style="margin-top: 0;">
@@ -43,8 +51,17 @@
 <!--<%= debug(params) if Rails.env.development? %>-->
 <!-- Twitter Bootstrap -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
 <script>
+  // ======= Toggle Admin =======
+  $(function() {
+    $('#toggle-event').change(function() {
+      $.post("/users/toggle_admin", {is_admin: $(this).prop('checked')});
+    })
+  })
+
+  // ======= Facebook Login =======
   // This is called with the results from from FB.getLoginStatus().
   function statusChangeCallback(response) {
     // The response object is returned with a status field that lets the
@@ -65,12 +82,22 @@
 //      if (window.location.pathname != "/") {
 //        window.location.pathname = "/";
 //      }
+      doLogout();
     }
   }
 
 //  function facebook_login() {
 //    window.location.pathname = "/";
 //  }
+
+  // (1) posts logout request to backend to nullify user session data
+  // (2) redirects user to home poge
+  function doLogout() {
+    $.post("/users/logged_out_fb");
+    if (window.location.pathname != "/") {
+      window.location.pathname = "/";
+    }
+  }
 
   // This function is called when someone finishes with the Login
   // Button.  See the onlogin handler attached to it in the sample

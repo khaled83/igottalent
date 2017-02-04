@@ -26,6 +26,12 @@ class UsersController < ApplicationController
     redirect_to root_url
   end
 
+  def toggle_admin
+    session[:is_admin] = params[:is_admin]
+    Rails.logger.info session[:is_admin]
+    head 200
+  end
+
   # GET /users
   # GET /users.json
   def index

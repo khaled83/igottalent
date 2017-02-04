@@ -18,6 +18,10 @@ module ApplicationHelper
     session[:user_id] = user_id
   end
 
+  def is_admin?
+    session[:is_admin] == 'true'
+  end
+
   def full_title(page_title)
     title = 'I GOT TALENT'
     title = "#{title} | #{page_title}" if page_title
