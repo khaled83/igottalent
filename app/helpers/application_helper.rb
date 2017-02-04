@@ -19,7 +19,7 @@ module ApplicationHelper
   end
 
   def is_admin?
-    session[:is_admin] == 'true'
+    current_user.is_admin and session[:is_admin] == 'true'
   end
 
   def full_title(page_title)

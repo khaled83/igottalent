@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170115133800) do
+ActiveRecord::Schema.define(version: 20170204050727) do
 
   create_table "likes", force: :cascade do |t|
     t.integer  "video"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 20170115133800) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "fb_user_id"
+    t.boolean  "is_admin"
   end
 
   create_table "videos", force: :cascade do |t|
