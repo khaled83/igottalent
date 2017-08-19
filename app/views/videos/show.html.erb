@@ -61,7 +61,13 @@
   <br/>
 
   <%= link_to 'Edit', edit_video_path(@video) %> |
-  <%= link_to 'Back', videos_path %> |
+
+  <% if is_admin_view? %>
+    <%= link_to 'Back', videos_path %> |
+  <% else %>
+    <%= link_to 'Back', my_videos_path %> |
+  <% end %>
+
   <%= link_to 'Slots', slots_path %>
 
     <br><br>
