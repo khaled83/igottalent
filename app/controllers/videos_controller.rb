@@ -8,6 +8,12 @@ class VideosController < ApplicationController
     @videos = Video.all
   end
 
+  def my_videos
+    puts current_user
+    @videos = Video.where(user_id: current_user.id)
+    render 'videos/index'
+  end
+
   # GET /videos/1
   # GET /videos/1.json
   def show

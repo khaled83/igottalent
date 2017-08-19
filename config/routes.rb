@@ -20,7 +20,8 @@ Rails.application.routes.draw do
   post 'slots/:id/dislike'      =>  'slots#dislike'
 
   # VIDEOS
-  get 'upload/upload'
+  # get 'upload/upload'
+  get 'my_videos'               =>  'videos#my_videos'
   get 'videos/:id/slot/edit'    =>  'videos#slot_update'
   post 'videos/:id/approve'     =>  'videos#approve'
   post 'videos/:id/disapprove'  =>  'videos#disapprove'

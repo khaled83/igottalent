@@ -22,11 +22,13 @@
     <li role="presentation" class="">
       <%= link_to 'Home', slots_path %>
     </li>
-    <% if is_admin_view? %>
     <li role="presentation" class="" style="text-align: rig">
-      <%= link_to 'Queue', videos_path %>
+      <% if is_admin_view? %>
+        <%= link_to 'Queue', videos_path %>
+      <% else %>
+        <%= link_to 'My Videos', my_videos_path %>
+      <% end %>
     </li>
-    <% end %>
     <% unless current_page? root_url %>
         <li role="presentation" class="" style="float: right; padding-top: 5px">
           <fb:login-button onlogin="checkLoginState();" data-size="medium" data-auto-logout-link="true">
@@ -95,7 +97,7 @@
   function doLogout() {
     $.post("/users/logged_out_fb");
     if (window.location.pathname != "/") {
-      window.location.pathname = "/";
+      window.location.pathname = "/logout";
     }
   }
 

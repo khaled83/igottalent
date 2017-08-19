@@ -30,7 +30,9 @@
           <td><%= video.duration_in_seconds %></td>
           <td><%= video.user.email if video.user %></td>
           <td><%= link_to 'Show', video, class: 'btn btn-default' %></td>
-          <td><%= link_to 'Approve', "/videos/#{video.id}/approve", method: :post, class: 'btn btn-success' %></td>
+          <% if is_admin_view? %>
+            <td><%= link_to 'Approve', "/videos/#{video.id}/approve", method: :post, class: 'btn btn-success' %></td>
+          <% end %>
           <!--<td><%= link_to 'Edit', edit_video_path(video), class: 'btn btn-default' %></td>-->
           <td><%= link_to 'Delete', video, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
         </tr>
