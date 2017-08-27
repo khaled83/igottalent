@@ -36,6 +36,7 @@
 
     <!-- Sign Out -->
     <!-- Profile -->
+    <% if current_user %>
     <li role="presentation" class="" style="float: right;">
       <%= link_to '/profile', {:style => 'padding: 0; margin-left: 5px; cursor: pointer;'} do %>
       <div class="avatar-circle-xs" style="margin-top: 4px;">
@@ -45,6 +46,7 @@
       </div>
       <% end %>
     </li>
+    <% end %>
 
     <% unless current_page? root_url %>
         <li role="presentation" class="" style="float: right; padding-top: 5px">
