@@ -1,0 +1,35 @@
+<div id="container">
+  <div class="page-header">
+    <h1>I GOT TALENT <small><%= @profile.name %>'s Profile</small></h1>
+  </div>
+
+  <p id="notice"><%= notice %></p>
+
+  <div class="avatar-circle">
+     <span class="initials">
+       <%= @profile.name[0..1].upcase %>
+     </span>
+   </div>
+
+  <br><br>
+
+  <p style="font-size: x-large;">
+    <strong>Name:</strong>
+    <span style="color: gray;"><%= @profile.name %></span>
+  </p>
+
+  <br>
+
+  <p style="font-size: x-large;">
+    <strong>Email:</strong>
+    <span style="color: gray;"><%= @profile.email %></span>
+  </p>
+
+  <br><br>
+
+  <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+  <%= link_to 'Edit Profile', edit_profile_path(@profile) %> |
+  <%= link_to 'Back', root_path %>
+
+</div>
+

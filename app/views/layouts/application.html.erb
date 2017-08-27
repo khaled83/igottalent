@@ -19,22 +19,41 @@
 <nav id="mainMenu">
   <ul class="nav nav-pills">
 
+    <!-- Home -->
     <li role="presentation" class="">
       <%= link_to 'Home', slots_path %>
     </li>
-    <li role="presentation" class="" style="text-align: rig">
+
+    <!-- Videos -->
+    <li role="presentation" class="" style="text-align: right;">
       <% if is_admin_view? %>
         <%= link_to 'Queue', videos_path %>
       <% else %>
         <%= link_to 'My Videos', my_videos_path %>
       <% end %>
     </li>
+
+
+    <!-- Sign Out -->
+    <!-- Profile -->
+    <li role="presentation" class="" style="float: right;">
+      <%= link_to '/profile', {:style => 'padding: 0; margin-left: 5px; cursor: pointer;'} do %>
+      <div class="avatar-circle-xs" style="margin-top: 4px;">
+       <span class="initials">
+         <%= current_user.name[0..1].upcase %>
+       </span>
+      </div>
+      <% end %>
+    </li>
+
     <% unless current_page? root_url %>
         <li role="presentation" class="" style="float: right; padding-top: 5px">
           <fb:login-button onlogin="checkLoginState();" data-size="medium" data-auto-logout-link="true">
           </fb:login-button>
         </li>
     <% end %>
+
+    <!-- User/Admin Toggle -->
     <% if is_admin_user? %>
         <li role="presentation" class="" style="float: right; padding-top: 5px; padding-right: 5px;">
           <input type="checkbox" <%= is_admin_view? ? 'checked' : '' %> id="toggle-event" data-toggle="toggle" data-size="mini" data-on="Admin" data-off="User">

@@ -4,11 +4,12 @@ Rails.application.routes.draw do
   resources :slots
   resources :videos
   resources :users
+  resources :profiles
 
   # USERS
   get  'users/select/:user_id'   =>  'users#select'
-  post 'users/logged_in_fb'     =>  'users#logged_in_fb'
-  post 'users/logged_out_fb'    =>  'users#logged_out_fb'
+  post 'users/logged_in_fb'      =>  'users#logged_in_fb'
+  post 'users/logged_out_fb'     =>  'users#logged_out_fb'
   get  'logout'                  =>  'users#logout_fb'
   get  'login_fb'                =>  'users#login_fb'
   post 'users/toggle_admin'      =>  'users#toggle_admin'
@@ -27,5 +28,9 @@ Rails.application.routes.draw do
   post 'videos/:id/disapprove'  =>  'videos#disapprove'
   post 'videos/:id/like'        =>  'videos#like'
   post 'videos/:id/dislike'     =>  'videos#dislike'
+
+  # profiles
+  match 'profile'               =>  'profiles#show', via: :get
+  match 'profile/edit'          =>  'profiles#edit', via: :patch
 
 end
