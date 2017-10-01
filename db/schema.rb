@@ -11,10 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170827091217) do
+ActiveRecord::Schema.define(version: 20171001110048) do
 
   create_table "likes", force: :cascade do |t|
-    t.integer  "video"
+    t.integer  "video_id"
     t.integer  "user"
     t.boolean  "liked"
     t.datetime "created_at", null: false
@@ -56,9 +56,10 @@ ActiveRecord::Schema.define(version: 20170827091217) do
     t.string   "url"
     t.integer  "duration_in_seconds"
     t.integer  "user_id"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.integer  "slot_id"
+    t.integer  "likes_count",         default: 0
   end
 
   add_index "videos", ["slot_id"], name: "index_videos_on_slot_id"

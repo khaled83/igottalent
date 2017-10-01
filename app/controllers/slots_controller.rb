@@ -7,14 +7,15 @@ class SlotsController < ApplicationController
   def index
     Rails.logger.info "Slots#index fb_user_id=#{session[:fb_user_id]} : @current_user=#{@current_user} : current_user=#{current_user}"
     # number of items per page
-    cur_page = params[:page]
     per_page = 3
-    @slots = Slot.paginate(page: cur_page, per_page: per_page).order('created_at DESC')
+    @slots = Slot.popular.paginate(page: params[:page_popular], per_page: per_page).order('created_at DESC')
+    @latest = Slot.latest.paginate(page: params[:page_latest], per_page: per_page)
+    @recommended = Slot.popular.paginate(page: params[:page_recommended], per_page: per_page)
 
     @filling_slots = []
     if( @slots.length < per_page )
       filling_count = per_page - @slots.length
-      @filling_slots = Slot.paginate(page: cur_page.to_i-1, per_page: filling_count).order('created_at DESC')
+      @filling_slots = Slot.paginate(page: params[:page_popular].to_i-1, per_page: filling_count).order('created_at DESC')
     end
     # session[:fb_code] = params[:code] if params[:code]
   end

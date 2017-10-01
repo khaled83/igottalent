@@ -2,7 +2,9 @@
 
 <div id="container">
   <div class="page-header">
-    <h2>I GOT TALENT <small>SCHEDULE</small></h2>
+    <h2>I GOT TALENT
+      <small>SCHEDULE</small>
+    </h2>
   </div>
 
   <p id="notice"><%= notice %></p>
@@ -13,82 +15,90 @@
       </div>
   <% end %>
 
-<p>Check out latest <em>I Got Talent</em> events!</p>
+  <p>Check out latest <em>I Got Talent</em> events!</p>
 
-<p>Wanna share your talent? <%= link_to 'Upload now!', new_video_path, class: 'btn-sm btn-success' %></p>
+  <p>Wanna share your talent? <%= link_to 'Upload now!', new_video_path, class: 'btn-sm btn-success' %></p>
 
   <!-- Popular videos -->
   <div class="page-header">
-    <h1 style="font-variant: small-caps;">Popular <small>Videos most visited by everyone</small></h1>
+    <h1 style="font-variant: small-caps;">Popular
+      <small>Videos most visited by everyone</small>
+    </h1>
   </div>
   <div class="row">
     <nav class="col-lg-1">
-        <ul class="pager">
-          <li class="pager-prev <%= 'disabled' unless @slots.previous_page %>" style="float: left;"><a href=<%= @slots.current_page == 1 ? '#' : "/slots/?page=#{@slots.previous_page}" %>>Newer</a></li>
-        </ul>
+      <ul class="pager">
+        <li class="pager-prev <%= 'disabled' unless @slots.previous_page %>" style="float: left;">
+          <a href=<%= @slots.current_page == 1 ? '#' : "/slots/?page_popular=#{@slots.previous_page}" %>>Newer</a></li>
+      </ul>
     </nav>
 
     <% @filling_slots.each do |slot| %>
-      <%= render partial: 'video_panel', locals: { slot: slot } %>
+        <%= render partial: 'video_panel', locals: {slot: slot} %>
     <% end %>
 
     <% @slots.each do |slot| %>
-      <%= render partial: 'video_panel', locals: { slot: slot } %>
+        <%= render partial: 'video_panel', locals: {slot: slot} %>
     <% end %>
 
     <nav class="col-lg-1">
-        <ul class="pager">
-          <li class="pager-prev  <%= 'disabled' unless @slots.next_page %>"><a href=<%= @slots.current_page == @slots.total_pages ? '#' : "/slots/?page=#{@slots.next_page}" %>>Older</a></li>
-        </ul>
+      <ul class="pager">
+        <li class="pager-prev  <%= 'disabled' unless @slots.next_page %>">
+          <a href=<%= @slots.current_page == @slots.total_pages ? '#' : "/slots?page_popular=#{@slots.next_page}" %>>Older</a>
+        </li>
+      </ul>
     </nav>
   </div>
 
   <!-- Latest Videos -->
   <div class="page-header">
-    <h1 style="font-variant: small-caps;">Latest <small>Stay up to date with new stuff</small></h1>
+    <h1 style="font-variant: small-caps;">Latest
+      <small>Stay up to date with new stuff</small>
+    </h1>
   </div>
- <div class="row">
-     <div class="col-lg-1"></div>
+  <div class="row">
+    <div class="col-lg-1"></div>
 
-    <% @filling_slots.each do |slot| %>
-      <%= render partial: 'video_panel', locals: { slot: slot } %>
+    <% @latest.each do |slot| %>
+        <%= render partial: 'video_panel', locals: {slot: slot} %>
     <% end %>
 
-   <% @slots.each do |slot| %>
-       <%= render partial: 'video_panel', locals: { slot: slot } %>
-    <% end %>
-
-   <div style="clear: both;">
-    <%= will_paginate style: 'margin-left: 365px;' %>
-   </div>
+    <div style="clear: both;">
+      <%= will_paginate @latest, :param_name => 'page_latest', style: 'margin-left: 365px;' %>
+    </div>
 
   </div>
 
   <!-- Recommended Videos -->
   <div class="page-header">
-    <h1 style="font-variant: small-caps;">Recommended <small>We think you will like these videos</small></h1>
+    <h1 style="font-variant: small-caps;">Recommended
+      <small>We think you will like these videos</small>
+    </h1>
   </div>
   <div class="row">
     <div class="col-lg-1"></div>
 
     <% @filling_slots.each do |slot| %>
-        <%= render partial: 'video_panel', locals: { slot: slot } %>
+        <%= render partial: 'video_panel', locals: {slot: slot} %>
     <% end %>
 
     <% @slots.each do |slot| %>
-      <%= render partial: 'video_panel', locals: { slot: slot } %>
+        <%= render partial: 'video_panel', locals: {slot: slot} %>
     <% end %>
 
   </div>
   <nav>
-      <ul class="pager">
-        <li class="pager-prev <%= 'disabled' unless @slots.previous_page %>" style="float: left;"><a href=<%= @slots.current_page == 1 ? '#' : "/?page=#{@slots.previous_page}" %>>Newer</a></li>
-        <li class="pager-prev  <%= 'disabled' unless @slots.next_page %>" style="float: right;"><a href=<%= @slots.current_page == @slots.total_pages ? '#' : "/?page=#{@slots.next_page}" %>>Older</a></li>
-      </ul>
+    <ul class="pager">
+      <li class="pager-prev <%= 'disabled' unless @slots.previous_page %>" style="float: left;">
+        <a href=<%= @slots.current_page == 1 ? '#' : "/?page_recommended=#{@slots.previous_page}" %>>Newer</a></li>
+      <li class="pager-prev  <%= 'disabled' unless @slots.next_page %>" style="float: right;">
+        <a href=<%= @slots.current_page == @slots.total_pages ? '#' : "/?page_recommended=#{@slots.next_page}" %>>Older</a>
+      </li>
+    </ul>
   </nav>
 
   <br>
 
-<!--<%= link_to '+New Time Slot', new_slot_path, class: "btn btn-warning" %>-->
+  <!--<%= link_to '+New Time Slot', new_slot_path, class: "btn btn-warning" %>-->
 
 </div>
