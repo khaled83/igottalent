@@ -6,7 +6,7 @@
           by
           <strong><%= slot.video.user.name %></strong>
         </div>
-        <div class="panel-body">
+        <div class="panel-body" style="">
           <% if live?(slot) %>
               <!-- 4:3 aspect ratio -->
               <div class="embed-responsive embed-responsive-16by9">
@@ -18,27 +18,26 @@
                 <!--                    <iframe width="290" height="165" src="<%= "https://www.youtube.com/embed/#{youtube_video_id_of(slot.video)}" %>" class="embed-responsive-item" frameborder="0" allowfullscreen></iframe>-->
               </div>
               <br>
-              <div style="float: left;">
+              <div style="float: left">
                 <!-- Current user didn't like this video before? -->
                 <% unless Like.liked?( slot.video.id, current_user.id ) %>
-                    <i class="fa fa-thumbs-o-up" style="font-size: 18px;" aria-hidden="true"></i>
-                    <%= link_to 'Like', "/slots/#{slot.video.id}/like", method: :post, class: 'btn btn-success btn-xs' %>
+                  <%= link_to("/slots/#{slot.video.id}/like", method: :post, remote: true, class: 'like btn btn-default btn-s') do %>
+                    <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                    Like&nbsp;
+                  <% end %>
                 <% else %>
-                    <i class="fa fa-thumbs-up" style="font-size: 18px;" aria-hidden="true"></i>
+                  <%= link_to("/slots/#{slot.video.id}/dislike", method: :post, remote: true, class: 'liked btn btn-success btn-s') do %>
+                    <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                    Liked
+                  </button>
+                  <% end %>
                 <% end %>
                 <!-- How many people liked this video? -->
-                <small><%= Like.like_count( slot.video.id ) %></small>
               </div>
 
-              <div style="float: right;;">
-                <!-- Current user didn't dislike this video before? -->
-                <small><%= Like.dislike_count( slot.video.id ) %></small>
-                <% unless Like.disliked?( slot.video.id, current_user.id ) %>
-                    <%= link_to 'Dislike', "/slots/#{slot.video.id}/dislike", method: :post, class: 'btn btn-danger btn-xs' %>
-                    <i class="fa fa-thumbs-o-down" style="font-size: 18px;" aria-hidden="true"></i>
-                <% else %>
-                    <i class="fa fa-thumbs-down" style="font-size: 18px;" aria-hidden="true"></i>
-                <% end %>
+              <div style="float: right; font-size: 12px;">
+                <small id="likeCount" style="font-weight: bold;"><%= Like.like_count( slot.video.id ) %></small> people
+                <br>liked this
               </div>
           <% else %>
               <address>

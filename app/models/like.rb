@@ -13,7 +13,7 @@ class Like < ActiveRecord::Base
   end
 
   def self.like_count( video_id )
-    Like.where( video_id: video_id, liked: true ).count + 1000
+    Like.where( video_id: video_id, liked: true ).count
   end
 
   def self.dislike_count( video_id )

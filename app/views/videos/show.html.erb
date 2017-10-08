@@ -78,21 +78,13 @@
           <i class="fa fa-thumbs-o-up" style="font-size: 18px;" aria-hidden="true"></i>
           <%= link_to 'Like', "/videos/#{@video.id}/like", method: :post, class: 'btn btn-success btn-xs' %>
       <% else %>
-          <i class="fa fa-thumbs-up" style="font-size: 18px;" aria-hidden="true"></i>
+          <i class="fa fa-thumbs-up" style="font-size: 24px; vertical-align: middle;" aria-hidden="true"></i>
       <% end %>
       <!-- How many people liked this video? -->
-      <small style="color: green;"><%= Like.like_count( @video.id ) %> liked this video <%= ' including you' if Like.liked?( @video.id, current_user.id ) %></small>
 
       <div style="float: right;">
-        <!-- Current user didn't dislike this video before? -->
-        <small style="color: red;"><%= Like.dislike_count( @video.id ) %> people disliked this video</small>
-        <%= ' including you' if Like.disliked?( @video.id, current_user.id ) %>
-        <% unless Like.disliked?( @video.id, current_user.id ) %>
-            <%= link_to 'Dislike', "/videos/#{@video.id}/dislike", method: :post, class: 'btn btn-danger btn-xs' %>
-            <i class="fa fa-thumbs-o-down" style="font-size: 18px;" aria-hidden="true"></i>
-        <% else %>
-            <i class="fa fa-thumbs-down" style="font-size: 18px;" aria-hidden="true"></i>
-        <% end %>
+        <small style="color: green;"><%= Like.like_count( @video.id ) %> liked this video <%= ' including you' if Like.liked?( @video.id, current_user.id ) %></small> liked this
+
       </div>
     </div>
 

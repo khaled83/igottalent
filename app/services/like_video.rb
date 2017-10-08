@@ -12,12 +12,12 @@ class LikeVideo
 
   def self.dislike(video_id, user_id)
     # skip if this video already liked before
-    unless Like.disliked?(video_id, user_id)
-      like = Like.find_by( video_id: video_id, user: user_id, liked: true )
-      like.delete if like
-      # new dislike
-      Like.create( video_id: video_id, user: user_id, liked: false )
-    end
+    like = Like.find_by( video_id: video_id, user: user_id, liked: true )
+    like.delete if like
+    # unless Like.disliked?(video_id, user_id)
+    #   # new dislike
+    #   Like.create( video_id: video_id, user: user_id, liked: false )
+    # end
   end
 
 end
