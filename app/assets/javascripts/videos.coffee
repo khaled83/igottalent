@@ -10,4 +10,10 @@ $ ->
     $(a).toggleClass( "btn-success" )
     $('span#likeCount').fadeOut( "slow")
     # TODO: increase/decrease like count
-    # ...
+    likeCountContainer = $(a).closest('.panel-body').find('.likeCount')
+    likeCount = likeCountContainer.text()
+    if $(a).hasClass('liked')
+      likeCount++
+    else
+      likeCount--
+    likeCountContainer.text(likeCount);
