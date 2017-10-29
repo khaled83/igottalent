@@ -82,20 +82,20 @@
         <%= render partial: 'video_panel', locals: {slot: slot} %>
     <% end %>
 
-    <% @slots.each do |slot| %>
+    <% @recommended.each do |slot| %>
         <%= render partial: 'video_panel', locals: {slot: slot} %>
     <% end %>
 
   </div>
-  <nav>
-    <ul class="pager">
-      <li class="pager-prev <%= 'disabled' unless @slots.previous_page %>" style="float: left;">
-        <a href=<%= @slots.current_page == 1 ? '#' : "/?page_recommended=#{@slots.previous_page}" %>>Newer</a></li>
-      <li class="pager-prev  <%= 'disabled' unless @slots.next_page %>" style="float: right;">
-        <a href=<%= @slots.current_page == @slots.total_pages ? '#' : "/?page_recommended=#{@slots.next_page}" %>>Older</a>
-      </li>
-    </ul>
-  </nav>
+  <!--<nav>-->
+    <!--<ul class="pager">-->
+      <!--<li class="pager-prev <%= 'disabled' unless @slots.previous_page %>" style="float: left;">-->
+        <!--<a href=<%= @slots.current_page == 1 ? '#' : "/?page_recommended=#{@slots.previous_page}" %>>Newer</a></li>-->
+      <!--<li class="pager-prev  <%= 'disabled' unless @slots.next_page %>" style="float: right;">-->
+        <!--<a href=<%= @slots.current_page == @slots.total_pages ? '#' : "/?page_recommended=#{@slots.next_page}" %>>Older</a>-->
+      <!--</li>-->
+    <!--</ul>-->
+  <!--</nav>-->
 
   <br>
 

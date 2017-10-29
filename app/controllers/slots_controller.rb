@@ -10,7 +10,7 @@ class SlotsController < ApplicationController
     per_page = 3
     @slots = Slot.popular.paginate(page: params[:page_popular], per_page: per_page).order('created_at DESC')
     @latest = Slot.latest.paginate(page: params[:page_latest], per_page: per_page)
-    @recommended = Slot.popular.paginate(page: params[:page_recommended], per_page: per_page)
+    @recommended = Slot.recommended.paginate(page: params[:page_recommended], per_page: per_page)
 
     @filling_slots = []
     if( @slots.length < per_page )

@@ -5,4 +5,5 @@ class Slot < ActiveRecord::Base
   scope :popular, -> { joins(:video).order('likes_count DESC') }
   scope :available, -> { where(video_id: nil) }
   scope :latest, -> { order('created_at DESC') }
+  scope :recommended, -> { order('RANDOM()').limit(3) }
 end
